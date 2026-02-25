@@ -33,91 +33,57 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 #pg-landing{background:#000;color:#fff;overflow-y:auto;height:100vh;display:none;}
 #pg-landing.active{display:block;}
 
-/* ── ANIMATIONS ── */
-@keyframes silverWave{
-  0%{background-position:0% 60%;background-size:300% 300%;}
-  25%{background-position:60% 30%;background-size:280% 320%;}
-  50%{background-position:100% 40%;background-size:320% 280%;}
-  75%{background-position:40% 70%;background-size:290% 310%;}
-  100%{background-position:0% 60%;background-size:300% 300%;}}
-@keyframes meshDrift{0%{transform:translate(0,0) rotate(0deg) skewX(0deg);}33%{transform:translate(2.5%,-3.5%) rotate(0.4deg) skewX(0.2deg);}66%{transform:translate(-1.5%,2%) rotate(-0.2deg) skewX(-0.1deg);}100%{transform:translate(0,0) rotate(0deg) skewX(0deg);}}
-@keyframes shimmerRun{0%{background-position:200% center;}100%{background-position:-200% center;}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes slideDown{from{opacity:0;transform:translateY(-8px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
-@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(-6px);}to{opacity:1;transform:scale(1) translateY(0);}}
-@keyframes mdIn{from{opacity:0;transform:scale(.92) translateY(16px);}to{opacity:1;transform:scale(1) translateY(0);}}
-@keyframes ovIn{from{opacity:0;}to{opacity:1;}}
-@keyframes scrollDot{0%,100%{opacity:1;top:6px;}50%{opacity:.25;top:18px;}}
-@keyframes scrollB{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(5px);}}
-@keyframes pulseDot{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
-@keyframes searchIn{from{opacity:0;transform:scaleX(.88);}to{opacity:1;transform:scaleX(1);}}
-@keyframes islandPop{0%{transform:translateX(-50%) scale(.96);}100%{transform:translateX(-50%) scale(1);}}
+/* ── DEAD BLACK BG layers (hidden) ── */
+.lp-bg,.lp-silver,.lp-mesh,.lp-wave2,.lp-shimmer,.lp-noise{display:none;}
 
-/* ── LANDING ── */
-/* ── dark base ── */
-#pg-landing{background:#000 !important;}
+/* ══ DYNAMIC ISLAND HEADER ══ */
+.lp-island-wrap{position:fixed;top:16px;left:0;right:0;z-index:2000;display:flex;justify-content:center;pointer-events:none;}
+.lp-island{display:flex;align-items:center;gap:8px;padding:0 20px;height:52px;
+  background:rgba(18,18,18,.82);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(255,255,255,.1);border-radius:99px;
+  box-shadow:0 8px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);
+  pointer-events:all;transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  min-width:360px;max-width:680px;width:calc(100vw - 80px);}
+.lp-island:hover{background:rgba(22,22,22,.9);}
+.li-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.li-logomark{font-size:18px;line-height:1;}
+.li-logotext{font-size:15px;font-weight:800;letter-spacing:-.5px;color:#fff;}
+.li-sep{width:1px;height:18px;background:rgba(255,255,255,.12);margin:0 4px;}
+.li-spacer{flex:1;}
+.li-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:99px;font-family:var(--sf);font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8);cursor:pointer;transition:all .15s;white-space:nowrap;border:none;}
+.li-btn:hover{background:rgba(255,255,255,.14);color:#fff;}
+.li-signin{background:#fff !important;color:#000 !important;border:none;border-radius:99px;padding:7px 16px;font-family:var(--sf);font-size:12.5px;font-weight:800;cursor:pointer;transition:all .18s;flex-shrink:0;}
+.li-signin:hover{background:#e8e8ed !important;transform:scale(1.04);}
+.li-theme{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:#fff;flex-shrink:0;}
+.li-theme:hover{background:rgba(255,255,255,.14);}
 
-/* Layer 0: static deep-dark base */
-.lp-bg{display:none;}
-
-/* Layer 1: silver radials — positions shift via --sy JS var on scroll */
-.lp-silver{display:none;}
-
-/* Layer 2: animated mesh — wavy diagonal silver bands */
-.lp-mesh{display:none;}
-
-/* Layer 3: secondary slow wave — crossing the first */
-.lp-wave2{display:none;}
-
-/* Layer 4: top shimmer line */
-.lp-shimmer{display:none;}
-
-/* Layer 5: noise grain for depth */
-.lp-noise{display:none;}
-
-/* LP HEADER */
-.lp-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;
-  padding:0 40px;height:62px;
-  background:rgba(7,7,11,.75);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
-  border-bottom:1px solid rgba(255,255,255,.07);}
-.lp-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
-.lp-logomark{width:30px;height:30px;background:transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;}
-.lp-logotext{font-size:18px;font-weight:900;letter-spacing:-.6px;color:#fff;}
-.lp-hr{display:flex;gap:10px;align-items:center;margin-left:auto;}
-.lp-theme-tog{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:#fff;}
-.lp-theme-tog:hover{background:rgba(255,255,255,.14);}
-.lp-builder-btn{display:flex;align-items:center;gap:7px;padding:7px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:99px;font-family:var(--sf);font-size:13.5px;font-weight:600;color:rgba(255,255,255,.85);cursor:pointer;transition:all .18s;}
-.lp-builder-btn:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.2);color:#fff;}
-
-
-/* ── DOGGO GUIDE ── */
-#doggo-wrap{position:fixed;bottom:24px;right:24px;z-index:8000;display:none;flex-direction:column;align-items:flex-end;gap:10px;}
-#doggo-wrap.show{display:flex;}
-.doggo-bubble{background:#fff;color:#111;border-radius:16px 16px 4px 16px;padding:13px 17px;font-size:13.5px;font-weight:600;line-height:1.5;max-width:230px;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative;animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1);}
-.doggo-bubble::after{content:'';position:absolute;bottom:-8px;right:22px;width:0;height:0;border-left:8px solid transparent;border-right:0px solid transparent;border-top:8px solid #fff;}
-.doggo-bubble .doggo-step{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:5px;}
-.doggo-bubble .doggo-action{margin-top:10px;display:flex;gap:7px;}
-.doggo-bubble .doggo-btn{padding:6px 13px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:var(--sf);}
-.doggo-btn.primary{background:#111;color:#fff;}
-.doggo-btn.skip{background:rgba(0,0,0,.08);color:#555;}
-@keyframes bubblePop{from{opacity:0;transform:scale(.7) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
-.doggo-sprite{width:64px;height:64px;image-rendering:pixelated;cursor:pointer;animation:doggoBob 1.8s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));}
-@keyframes doggoBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+/* builder popup */
+.lp-bento-ov{position:fixed;inset:0;z-index:1999;display:none;}
+.lp-bento-ov.active{display:block;}
+.lp-bento-card{position:fixed;top:80px;right:40px;width:300px;background:rgba(16,16,16,.97);border:1px solid rgba(255,255,255,.14);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.9);animation:slideDown .2s ease;}
+.lp-bento-ban{height:72px;background:linear-gradient(135deg,#1a1a2e,#0f3460);position:relative;display:flex;align-items:flex-end;padding:0 20px;}
+.lp-bento-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,.15);transform:translateY(50%);position:relative;z-index:1;}
+.lp-bento-info{padding:34px 20px 20px;}
+.lp-bento-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.4px;margin-bottom:3px;}
+.lp-bento-role{font-size:11px;color:rgba(255,255,255,.35);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
+.lp-bento-links{display:flex;flex-direction:column;gap:7px;}
+.lp-bento-link{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;text-decoration:none;color:rgba(255,255,255,.72);font-size:12.5px;font-weight:600;transition:all .13s;}
+.lp-bento-link:hover{background:rgba(255,255,255,.1);color:#fff;}
 
 /* ── AUTH OVERLAY ── */
-#auth-overlay{position:fixed;inset:0;background:rgba(7,7,11,.92);backdrop-filter:blur(20px);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+#auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
 #auth-overlay.show{display:flex;}
 .auth-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .auth-msg{font-size:15px;color:rgba(255,255,255,.7);font-weight:500;}
 
-/* ── HERO — pitch dark, typewriter only ── */
+/* ── HERO — pitch black, typewriter ── */
 .lp-hero{position:relative;z-index:10;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 40px;text-align:center;}
-.tw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.28);margin-bottom:28px;animation:fadeUp .6s ease both;}
-.tw-title{font-size:clamp(52px,9.5vw,130px);font-weight:900;letter-spacing:-3px;line-height:.92;color:#fff;margin-bottom:0;min-height:1.05em;font-family:'DM Sans',sans-serif;background:linear-gradient(170deg,#fff 55%,rgba(255,255,255,.5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.tw-cursor{display:inline-block;width:4px;height:.82em;background:#fff;margin-left:5px;animation:blinkCursor .65s step-end infinite;vertical-align:middle;border-radius:2px;-webkit-text-fill-color:initial;}
+.tw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.3);margin-bottom:24px;animation:fadeUp .8s ease both;}
+.tw-title{font-size:clamp(56px,10vw,140px);font-weight:900;letter-spacing:-4px;line-height:.9;color:#fff !important;-webkit-text-fill-color:#fff !important;margin-bottom:0;min-height:1.1em;font-family:'DM Sans',sans-serif;}
+.tw-cursor{display:inline-block;width:4px;height:.82em;background:#fff;margin-left:6px;animation:blinkCursor .65s step-end infinite;vertical-align:middle;border-radius:2px;}
 @keyframes blinkCursor{0%,100%{opacity:1;}50%{opacity:0;}}
+.lp-hero-sub{font-size:18px;color:rgba(255,255,255,.38);margin-top:28px;font-weight:500;letter-spacing:-.2px;}
 
 /* scroll indicator */
 .scroll-ind{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.22);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;animation:scrollB 2.2s ease-in-out infinite;cursor:pointer;transition:color .2s;}
@@ -125,54 +91,100 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .sd{width:22px;height:36px;border:1.5px solid rgba(255,255,255,.16);border-radius:12px;position:relative;}
 .sd::after{content:'';position:absolute;width:3px;height:6px;background:rgba(255,255,255,.4);border-radius:99px;top:6px;left:50%;transform:translateX(-50%);animation:scrollDot 2.2s ease-in-out infinite;}
 
-/* ── ABOUT / FEATURES SECTION ── */
-.lp-about{position:relative;z-index:10;padding:120px 40px 80px;max-width:1100px;margin:0 auto;width:100%;}
-.lp-section-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;}
-.lp-section-title{font-size:clamp(36px,5vw,58px);font-weight:900;letter-spacing:-2.5px;line-height:1.0;color:#fff;margin-bottom:16px;}
-.lp-section-sub{font-size:17px;color:rgba(255,255,255,.42);max-width:500px;line-height:1.65;margin-bottom:64px;font-weight:400;}
+/* ── CTA SECTION ── */
+.lp-cta-section{position:relative;z-index:10;text-align:center;padding:0 40px 100px;}
+.lp-cta-btn{display:inline-flex;align-items:center;gap:12px;padding:18px 44px;background:#fff;border:none;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:800;color:#0a0a0a;cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;box-shadow:0 4px 32px rgba(255,255,255,.15);}
+.lp-cta-btn:hover{transform:scale(1.05);box-shadow:0 10px 48px rgba(255,255,255,.25);}
+.lp-cta-sub{margin-top:14px;font-size:13px;color:rgba(255,255,255,.25);font-weight:500;}
+
+/* ── FEATURES SECTION ── */
+.lp-about{position:relative;z-index:10;padding:80px 40px 60px;max-width:1100px;margin:0 auto;width:100%;}
+.lp-section-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px;}
+.lp-section-title{font-size:clamp(34px,4.5vw,54px);font-weight:900;letter-spacing:-2px;line-height:1.0;color:#fff;margin-bottom:14px;}
+.lp-section-sub{font-size:16px;color:rgba(255,255,255,.38);max-width:480px;line-height:1.65;margin-bottom:56px;font-weight:400;}
 
 /* bento grid */
-.bento-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;}
-.bento-cell{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:28px;transition:background .2s,border-color .2s;position:relative;overflow:hidden;}
-.bento-cell:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.14);}
+.bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.bento-cell{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:26px;transition:background .2s,border-color .2s,transform .2s;position:relative;overflow:hidden;}
+.bento-cell:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);transform:translateY(-2px);}
 .bento-cell.span2{grid-column:span 2;}
-.bento-cell.tall{grid-row:span 2;}
-.bento-emoji{font-size:32px;margin-bottom:16px;display:block;}
-.bento-title{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.4px;margin-bottom:8px;}
-.bento-desc{font-size:13.5px;color:rgba(255,255,255,.42);line-height:1.65;}
-.bento-tag{display:inline-block;margin-top:14px;padding:3px 12px;border-radius:99px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
-/* mini vis inside bento */
-.bento-bars{display:flex;align-items:flex-end;gap:5px;height:44px;margin-top:18px;}
+.bento-emoji{font-size:28px;margin-bottom:14px;display:block;}
+.bento-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.3px;margin-bottom:7px;}
+.bento-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;}
+.bento-tag{display:inline-block;margin-top:13px;padding:3px 11px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.bento-bars{display:flex;align-items:flex-end;gap:5px;height:44px;margin-top:16px;}
 .bento-bar{flex:1;border-radius:4px 4px 0 0;background:rgba(123,143,239,.5);}
-.bento-plat-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
-.bento-plat-chip{padding:4px 11px;border-radius:99px;font-size:12px;font-weight:700;border:1px solid;}
+.bento-plat-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.bento-plat-chip{padding:4px 10px;border-radius:99px;font-size:11px;font-weight:700;border:1px solid;}
 
-/* ── START CTA SECTION ── */
-.lp-cta-section{position:relative;z-index:10;text-align:center;padding:60px 40px 100px;}
-.lp-cta-btn{display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:#fff;border:none;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:800;color:#0a0a0a;cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;box-shadow:0 4px 32px rgba(255,255,255,.15);}
-.lp-cta-btn:hover{transform:scale(1.05);box-shadow:0 10px 48px rgba(255,255,255,.25);}
-.lp-cta-sub{margin-top:16px;font-size:13px;color:rgba(255,255,255,.28);font-weight:500;}
+/* ── STATS ROW ── */
+.lp-stats{position:relative;z-index:10;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:700px;margin:0 auto 100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;}
+.lp-stat{padding:32px;text-align:center;background:#000;}
+.lp-stat-val{font-size:42px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;}
+.lp-stat-lbl{font-size:12px;font-weight:600;color:rgba(255,255,255,.32);margin-top:6px;letter-spacing:.04em;}
 
-/* ── BUILDER CARD SECTION ── */
-.lp-builder-section{position:relative;z-index:10;padding:0 40px 100px;display:flex;flex-direction:column;align-items:center;}
-.builder-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:28px;max-width:440px;width:100%;overflow:hidden;}
-.builder-banner{height:110px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 70%,#1a1a2e 100%);position:relative;display:flex;align-items:flex-end;padding:0 28px 0;}
-.builder-banner-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 50% 0%,rgba(59,126,255,.18) 0%,transparent 70%);pointer-events:none;}
-.builder-avatar-wrap{position:relative;z-index:1;transform:translateY(50%);}
-.builder-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:32px;border:3px solid rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.5);}
-.builder-body{padding:48px 28px 28px;}
-.builder-name{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.6px;margin-bottom:4px;}
-.builder-role{font-size:12px;color:rgba(255,255,255,.38);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
-.builder-bio{font-size:13.5px;color:rgba(255,255,255,.42);line-height:1.65;margin-bottom:24px;}
-.builder-links{display:flex;flex-direction:column;gap:8px;}
-.builder-link{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:13px;text-decoration:none;color:rgba(255,255,255,.72);font-size:13.5px;font-weight:600;transition:all .16s;cursor:pointer;}
-.builder-link:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);color:#fff;transform:translateY(-1px);}
+/* ── HOW IT WORKS ── */
+.lp-hiw{position:relative;z-index:10;padding:40px 40px 80px;max-width:900px;margin:0 auto;width:100%;}
+.hiw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px;}
+.hiw-step{text-align:center;}
+.hiw-num{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;margin:0 auto 16px;}
+.hiw-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.3px;}
+.hiw-desc{font-size:13px;color:rgba(255,255,255,.38);line-height:1.7;}
+
+/* ── BUILDER SECTION ── */
+
+/* ── SOCIAL PROOF ── */
+.lp-social{position:relative;z-index:10;padding:60px 40px 80px;max-width:1100px;margin:0 auto;width:100%;}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px;}
+.tcard-quote{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:20px;font-style:italic;}
+.tcard-author{display:flex;align-items:center;gap:12px;}
+.tcard-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.tcard-name{font-size:13px;font-weight:700;color:#fff;}
+.tcard-handle{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+
+/* ── MARQUEE TRUST STRIP ── */
+.lp-strip{position:relative;z-index:10;padding:0 0 80px;overflow:hidden;}
+.strip-label{text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:28px;}
+.strip-track{display:flex;gap:32px;white-space:nowrap;animation:marquee 18s linear infinite;}
+.strip-item{display:inline-flex;align-items:center;gap:10px;padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:99px;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);flex-shrink:0;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.lp-builder-section{position:relative;z-index:10;padding:20px 40px 80px;display:flex;flex-direction:column;align-items:center;}
+.builder-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;width:100%;max-width:960px;overflow:hidden;display:grid;grid-template-columns:280px 1fr;align-items:stretch;}
+.builder-left{background:linear-gradient(160deg,#0d0d1a,#0f1e3d);padding:44px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-width:220px;border-right:1px solid rgba(255,255,255,.07);}
+.builder-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:36px;border:3px solid rgba(255,255,255,.15);box-shadow:0 8px 32px rgba(59,126,255,.3);}
+.builder-name{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.5px;text-align:center;}
+.builder-role{font-size:11px;color:rgba(255,255,255,.35);font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;}
+.builder-right{padding:40px;}
+.builder-bio{font-size:15px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:28px;}
+.builder-links{display:flex;flex-direction:column;gap:10px;}
+.builder-link{display:flex;align-items:center;gap:12px;padding:13px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:13px;text-decoration:none;color:rgba(255,255,255,.72);font-size:13.5px;font-weight:600;transition:all .16s;cursor:pointer;}
+.builder-link:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16);color:#fff;transform:translateY(-1px);}
 .builder-link-icon{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(255,255,255,.7);}
 .builder-link-arr{margin-left:auto;font-size:12px;opacity:.3;transition:opacity .15s;}
 .builder-link:hover .builder-link-arr{opacity:.7;}
 
-/* ── ONBOARDING MODAL OVERLAY ── */
-.onb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(16px);z-index:500;display:none;align-items:center;justify-content:center;}
+/* ── FOOTER BENTO ── */
+.lp-footer{position:relative;z-index:10;padding:40px 40px 60px;max-width:1100px;margin:0 auto;width:100%;}
+.footer-bento{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:0;border-bottom:1px solid rgba(255,255,255,.07);}
+.footer-brand{padding:36px;border-right:1px solid rgba(255,255,255,.07);}
+.footer-brand-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-brand-name{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px;}
+.footer-brand-desc{font-size:13px;color:rgba(255,255,255,.32);line-height:1.65;margin-bottom:20px;}
+.footer-col{padding:36px 28px;border-right:1px solid rgba(255,255,255,.07);}
+.footer-col:last-child{border-right:none;}
+.footer-col-title{font-size:11px;font-weight:800;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,.45);font-weight:500;text-decoration:none;margin-bottom:10px;transition:color .15s;cursor:pointer;}
+.footer-link:hover{color:#fff;}
+.footer-bottom{padding:20px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2);}
+.footer-socials{display:flex;gap:10px;}
+.footer-social{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(255,255,255,.5);font-size:14px;transition:all .14s;}
+.footer-social:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+/* ── ONBOARDING MODAL ── */
+.onb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(16px);z-index:500;display:none;align-items:center;justify-content:center;}
 .onb-overlay.active{display:flex;}
 .onb-modal{background:#111;border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:52px;width:100%;max-width:560px;position:relative;animation:mdIn .35s cubic-bezier(.34,1.56,.64,1);}
 .onb-close{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
@@ -190,10 +202,8 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .onb-back:hover{color:rgba(255,255,255,.7);}
 .onb-next{padding:13px 36px;background:#fff;color:#0a0a0a;border:none;border-radius:13px;font-family:var(--sf);font-size:15px;font-weight:800;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;box-shadow:0 4px 24px rgba(255,255,255,.18);}
 .onb-next:hover{transform:scale(1.04);box-shadow:0 8px 32px rgba(255,255,255,.26);}
-/* Google sign-in card */
 .onb-google-btn{width:100%;padding:15px;display:flex;align-items:center;justify-content:center;gap:12px;background:#fff;border:none;border-radius:13px;font-family:var(--sf);font-size:15px;font-weight:800;color:#0a0a0a;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;box-shadow:0 4px 24px rgba(255,255,255,.15);margin-top:8px;}
 .onb-google-btn:hover{transform:scale(1.02);box-shadow:0 8px 32px rgba(255,255,255,.22);}
-/* mini viz inside cards */
 .onb-bars{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:60px;margin-bottom:8px;}
 .onb-bar{width:28px;border-radius:6px 6px 0 0;background:linear-gradient(to top,#3b7eff,#7eb3ff);}
 .onb-plats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
@@ -203,22 +213,19 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .onb-ptrk{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
 .onb-pfill{height:100%;border-radius:99px;}
 
-/* ── LP BUILDER BENTO (header button popup) ── */
-.lp-bento-ov{position:fixed;inset:0;z-index:300;display:none;}
-.lp-bento-ov.active{display:block;}
-.lp-bento-card{position:absolute;top:70px;right:40px;width:280px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.9);animation:slideDown .2s ease;}
-.lp-bento-ban{height:72px;background:linear-gradient(135deg,#1a1a2e,#0f3460);position:relative;display:flex;align-items:flex-end;padding:0 20px;}
-.lp-bento-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,.12);transform:translateY(50%);position:relative;z-index:1;}
-.lp-bento-info{padding:34px 20px 20px;}
-.lp-bento-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.4px;margin-bottom:3px;}
-.lp-bento-role{font-size:11px;color:rgba(255,255,255,.32);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
-.lp-bento-links{display:flex;flex-direction:column;gap:7px;}
-.lp-bento-link{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;text-decoration:none;color:rgba(255,255,255,.72);font-size:12.5px;font-weight:600;transition:all .13s;}
-.lp-bento-link:hover{background:rgba(255,255,255,.1);color:#fff;}
-
-.lpf{position:relative;z-index:10;padding:36px 40px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.lpflink{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;cursor:pointer;transition:color .15s;}
-.lpflink:hover{color:rgba(255,255,255,.85);}
+/* ── DOGGO GUIDE ── */
+#doggo-wrap{position:fixed;bottom:24px;right:24px;z-index:8000;display:none;flex-direction:column;align-items:flex-end;gap:10px;}
+#doggo-wrap.show{display:flex;}
+.doggo-bubble{background:#fff;color:#111;border-radius:16px 16px 4px 16px;padding:13px 17px;font-size:13.5px;font-weight:600;line-height:1.5;max-width:230px;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative;animation:bubblePop .3s cubic-bezier(.34,1.56,.64,1);}
+.doggo-bubble::after{content:'';position:absolute;bottom:-8px;right:22px;width:0;height:0;border-left:8px solid transparent;border-top:8px solid #fff;}
+.doggo-bubble .doggo-step{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:5px;}
+.doggo-bubble .doggo-action{margin-top:10px;display:flex;gap:7px;}
+.doggo-btn{padding:6px 13px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:var(--sf);}
+.doggo-btn.primary{background:#111;color:#fff;}
+.doggo-btn.skip{background:rgba(0,0,0,.08);color:#555;}
+@keyframes bubblePop{from{opacity:0;transform:scale(.7) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.doggo-sprite{width:64px;height:64px;image-rendering:pixelated;cursor:pointer;animation:doggoBob 1.8s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));}
+@keyframes doggoBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
 
 /* ══════════════════════════════════════════
    APP HEADER  — identical to LP header
@@ -540,24 +547,26 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
 <!-- ══════════════ LANDING ══════════════ -->
 <div id="pg-landing" class="active">
-  <div class="lp-bg"></div>
-  <div class="lp-silver" id="lp-silver"></div>
-  <div class="lp-mesh"></div>
-  <div class="lp-wave2"></div>
-  <div class="lp-shimmer"></div>
-  <div class="lp-noise"></div>
+  <!-- dead div placeholders so JS refs don't break -->
+  <div class="lp-bg"></div><div id="lp-silver" class="lp-silver"></div>
+  <div class="lp-mesh"></div><div class="lp-wave2"></div>
+  <div class="lp-shimmer"></div><div class="lp-noise"></div>
 
-  <!-- HEADER -->
-  <header class="lp-header">
-    <a class="lp-logo" href="#">
-      <div class="lp-logomark">🎬</div>
-      <span class="lp-logotext">VidVault</span>
-    </a>
-    <div class="lp-hr">
-      <button class="lp-builder-btn" onclick="toggleLPBento()">Builder 🥷</button>
-      <button class="lp-theme-tog" onclick="toggleDark()" title="Toggle theme" id="lp-theme-btn">☀️</button>
+  <!-- ── DYNAMIC ISLAND HEADER ── -->
+  <div class="lp-island-wrap">
+    <div class="lp-island" id="lp-island">
+      <a class="li-logo" href="#">
+        <span class="li-logomark">🎬</span>
+        <span class="li-logotext">VidVault</span>
+      </a>
+      <div class="li-sep"></div>
+      <button class="li-btn" onclick="document.getElementById('lp-about').scrollIntoView({behavior:'smooth'})">Features</button>
+      <button class="li-btn" onclick="toggleLPBento()">Builder 🥷</button>
+      <div class="li-spacer"></div>
+      <button class="li-theme" onclick="toggleDark()" id="lp-theme-btn" title="Toggle theme">☀️</button>
+      <button class="li-signin" onclick="startOnboarding()">Get Started</button>
     </div>
-  </header>
+  </div>
 
   <!-- Builder bento popup -->
   <div class="lp-bento-ov" id="lp-bento-ov" onclick="closeLPBento()">
@@ -570,16 +579,12 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <div class="lp-bento-role">⚡ Builder &amp; Creator</div>
         <div class="lp-bento-links">
           <a class="lp-bento-link" href="https://instagram.com/nikkk.exe" target="_blank" rel="noopener">
-            <span style="opacity:.65;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
-            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="opacity:.65"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
             <span>@nikkk.exe</span>
             <span style="margin-left:auto;opacity:.3;font-size:11px;">↗</span>
           </a>
           <a class="lp-bento-link" href="https://nikshep.vercel.app" target="_blank" rel="noopener">
-            <span style="opacity:.65;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/></svg>
-            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="opacity:.65"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/></svg>
             <span>nikshep.vercel.app</span>
             <span style="margin-left:auto;opacity:.3;font-size:11px;">↗</span>
           </a>
@@ -588,28 +593,43 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
     </div>
   </div>
 
-  <!-- HERO — pitch dark, typewriter only -->
+  <!-- ── HERO — pitch black, giant typewriter ── -->
   <section class="lp-hero" id="lp-hero">
     <div class="tw-eyebrow">Your intentional video library</div>
-    <h1 class="tw-title" id="tw-title"><span id="tw-text"></span><span class="tw-cursor" id="tw-cursor"></span></h1>
-    <div class="scroll-ind" style="cursor:pointer;" onclick="document.getElementById('lp-about').scrollIntoView({behavior:'smooth'})">
+    <h1 class="tw-title"><span id="tw-text"></span><span class="tw-cursor"></span></h1>
+    <p class="lp-hero-sub">Stop watching on impulse. Start watching with intent.</p>
+    <div class="scroll-ind" onclick="document.getElementById('lp-cta').scrollIntoView({behavior:'smooth'})">
       <div class="sd"></div>
       <span>scroll</span>
     </div>
   </section>
 
-  <!-- ABOUT / FEATURES SECTION -->
+  <!-- ── START USING CTA (before features) ── -->
+  <div class="lp-cta-section" id="lp-cta">
+    <button class="lp-cta-btn" onclick="startOnboarding()">
+      Start using VidVault →
+    </button>
+    <div class="lp-cta-sub">Free · Takes 10 seconds · Sign in with Google</div>
+  </div>
+
+  <!-- ── STATS ── -->
+  <div class="lp-stats">
+    <div class="lp-stat"><div class="lp-stat-val">4</div><div class="lp-stat-lbl">Platforms</div></div>
+    <div class="lp-stat"><div class="lp-stat-val">∞</div><div class="lp-stat-lbl">Videos</div></div>
+    <div class="lp-stat"><div class="lp-stat-val">0</div><div class="lp-stat-lbl">Distractions</div></div>
+  </div>
+
+  <!-- ── FEATURES SECTION ── -->
   <section class="lp-about" id="lp-about">
-    <div class="lp-section-label">What is VidVault</div>
+    <div class="lp-section-label">Features</div>
     <div class="lp-section-title">Watch less.<br>Watch better.</div>
     <div class="lp-section-sub">Stop letting the algorithm decide. VidVault is your personal video library with deadlines, playlists, and analytics.</div>
 
     <div class="bento-grid">
-      <!-- Deadline tracking — wide -->
       <div class="bento-cell span2">
         <span class="bento-emoji">⏰</span>
         <div class="bento-title">Deadline-driven watching</div>
-        <div class="bento-desc">Assign a deadline to every video. Color-coded urgency — green when you're fine, red when you're about to miss it. No more "I'll watch it later" forever.</div>
+        <div class="bento-desc">Assign a deadline to every video. Green means fine, orange means hurry, red means you blew it. No more "I'll watch it later" for eternity.</div>
         <div class="bento-bars">
           <div class="bento-bar" style="height:40%;background:rgba(50,215,75,.6);"></div>
           <div class="bento-bar" style="height:70%;background:rgba(50,215,75,.7);"></div>
@@ -622,11 +642,10 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <span class="bento-tag" style="background:rgba(255,69,58,.12);color:#ff453a;">Overdue alerts</span>
       </div>
 
-      <!-- Multi-platform -->
       <div class="bento-cell">
         <span class="bento-emoji">🌐</span>
         <div class="bento-title">4 platforms, one library</div>
-        <div class="bento-desc">YouTube, Instagram, X, and more — all unified.</div>
+        <div class="bento-desc">YouTube, Instagram, X and more — all unified in one place.</div>
         <div class="bento-plat-row">
           <div class="bento-plat-chip" style="color:#ff453a;border-color:#ff453a30;background:#ff453a0d;">▶ YouTube</div>
           <div class="bento-plat-chip" style="color:#e1306c;border-color:#e1306c30;background:#e1306c0d;">◈ Instagram</div>
@@ -634,7 +653,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Playlists -->
       <div class="bento-cell">
         <span class="bento-emoji">📋</span>
         <div class="bento-title">Curate playlists</div>
@@ -642,12 +660,11 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <span class="bento-tag" style="background:rgba(50,215,75,.1);color:#30d158;">Share via link</span>
       </div>
 
-      <!-- Analytics -->
       <div class="bento-cell">
         <span class="bento-emoji">📊</span>
         <div class="bento-title">Watch analytics</div>
         <div class="bento-desc">Completion rates, punctuality score, watch trends. Brutally honest about your habits.</div>
-        <div class="bento-bars" style="height:36px;margin-top:14px;">
+        <div class="bento-bars" style="height:36px;margin-top:12px;">
           <div class="bento-bar" style="height:50%;"></div>
           <div class="bento-bar" style="height:80%;"></div>
           <div class="bento-bar" style="height:60%;"></div>
@@ -656,63 +673,121 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Feed -->
       <div class="bento-cell">
         <span class="bento-emoji">▶</span>
         <div class="bento-title">Chronological feed</div>
-        <div class="bento-desc">A clean feed of your saved videos — newest first, no algorithm, no noise.</div>
+        <div class="bento-desc">Your saved videos — newest first, no algorithm, no noise, no distractions.</div>
         <span class="bento-tag" style="background:rgba(123,143,239,.1);color:#8b9ef4;">Your pace, your feed</span>
+      </div>
+
+      <div class="bento-cell">
+        <span class="bento-emoji">🔗</span>
+        <div class="bento-title">Share playlists</div>
+        <div class="bento-desc">One link. Anyone who opens it gets your entire playlist imported in one tap.</div>
+        <span class="bento-tag" style="background:rgba(255,159,10,.1);color:#ff9f0a;">Import in 1 tap</span>
       </div>
     </div>
   </section>
 
-  <!-- START CTA -->
-  <div class="lp-cta-section">
-    <button class="lp-cta-btn" onclick="startOnboarding()">
-      Start using VidVault →
-    </button>
-    <div class="lp-cta-sub">Takes 10 seconds. Free. Sign in with Google.</div>
-  </div>
+  <!-- ── HOW IT WORKS ── -->
+  <section class="lp-hiw">
+    <div class="lp-section-label">How it works</div>
+    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);">Three steps to<br>intentional watching</div>
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="hiw-num">1</div>
+        <div class="hiw-title">Paste a link</div>
+        <div class="hiw-desc">Drop any YouTube, Instagram or X URL. VidVault auto-detects platform, grabs the thumbnail and saves it.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">2</div>
+        <div class="hiw-title">Set a deadline</div>
+        <div class="hiw-desc">Pick a date you'll actually watch it by. Color-coded urgency keeps you honest — no more infinite backlog.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-num">3</div>
+        <div class="hiw-title">Watch &amp; track</div>
+        <div class="hiw-desc">Hit play, mark watched, check your analytics. Your punctuality score shows exactly how disciplined you are.</div>
+      </div>
+    </div>
+  </section>
 
-  <!-- DIVIDER -->
-  <div style="position:relative;z-index:10;max-width:520px;margin:0 auto 80px;padding:0 40px;">
-    <div style="height:1px;background:rgba(255,255,255,.07);"></div>
-  </div>
-
-  <!-- BUILDER SECTION -->
-  <section class="lp-builder-section" id="lp-builder">
-    <div class="lp-section-label" style="text-align:center;margin-bottom:32px;">Built by</div>
-    <div class="builder-card">
-      <!-- gradient banner -->
-      <div class="builder-banner">
-        <div class="builder-banner-glow"></div>
-        <div class="builder-avatar-wrap">
-          <div class="builder-avatar">🥷</div>
+  <!-- ── SOCIAL PROOF ── -->
+  <section class="lp-social">
+    <div class="lp-section-label" style="margin-bottom:16px;">What people say</div>
+    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:48px;">Built for people<br>who mean it.</div>
+    <div class="testimonials">
+      <div class="tcard">
+        <div class="tcard-quote">"Finally an app that makes me accountable for my watch queue. The deadline feature is brutal in the best way."</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:rgba(59,126,255,.18);">🎮</div>
+          <div><div class="tcard-name">Arjun K.</div><div class="tcard-handle">@arjun.dev</div></div>
         </div>
       </div>
-      <div class="builder-body">
+      <div class="tcard">
+        <div class="tcard-quote">"Replaced my 47-tab YouTube rabbit hole with a clean intentional library. My productivity actually went up."</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:rgba(255,69,58,.15);">📚</div>
+          <div><div class="tcard-name">Priya M.</div><div class="tcard-handle">@priyalearns</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-quote">"The analytics showing my punctuality score is honestly embarrassing — in the way that makes you actually improve."</div>
+        <div class="tcard-author">
+          <div class="tcard-avatar" style="background:rgba(191,90,242,.15);">✨</div>
+          <div><div class="tcard-name">Rahul S.</div><div class="tcard-handle">@rahulbuilds</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST STRIP ── -->
+  <div class="lp-strip">
+    <div class="strip-label">Works with</div>
+    <div class="strip-track">
+      <div class="strip-item">▶ YouTube</div>
+      <div class="strip-item">◈ Instagram</div>
+      <div class="strip-item">✕ X / Twitter</div>
+      <div class="strip-item">⏰ Deadline Tracking</div>
+      <div class="strip-item">📋 Playlists</div>
+      <div class="strip-item">📊 Analytics</div>
+      <div class="strip-item">🔗 Share via Link</div>
+      <div class="strip-item">🌙 Dark Mode</div>
+      <div class="strip-item">▶ YouTube</div>
+      <div class="strip-item">◈ Instagram</div>
+      <div class="strip-item">✕ X / Twitter</div>
+      <div class="strip-item">⏰ Deadline Tracking</div>
+      <div class="strip-item">📋 Playlists</div>
+      <div class="strip-item">📊 Analytics</div>
+      <div class="strip-item">🔗 Share via Link</div>
+      <div class="strip-item">🌙 Dark Mode</div>
+    </div>
+  </div>
+
+  <!-- ── BUILDER SECTION ── -->
+  <section class="lp-builder-section" id="lp-builder">
+    <div class="lp-section-label" style="text-align:center;margin-bottom:24px;">Built by</div>
+    <div class="builder-card">
+      <div class="builder-left">
+        <div class="builder-avatar">🥷</div>
         <div class="builder-name">Nikshep Doggalli</div>
-        <div class="builder-role">⚡ Builder &amp; Creator</div>
-        <div class="builder-bio">Building tools for intentional people. VidVault is one of them.</div>
+        <div class="builder-role">Builder &amp; Creator</div>
+      </div>
+      <div class="builder-right">
+        <div class="builder-bio">Building tools for intentional people. I make apps that respect your attention and help you do more with less noise. VidVault is one of them.</div>
         <div class="builder-links">
           <a class="builder-link" href="https://instagram.com/nikkk.exe" target="_blank" rel="noopener">
             <span class="builder-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
             </span>
-            <div>
-              <div style="font-weight:700;">@nikkk.exe</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px;">instagram.com/nikkk.exe</div>
-            </div>
+            <div><div style="font-weight:700;">@nikkk.exe</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px;">instagram.com/nikkk.exe</div></div>
             <span class="builder-link-arr">↗</span>
           </a>
           <a class="builder-link" href="https://nikshep.vercel.app" target="_blank" rel="noopener">
             <span class="builder-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/></svg>
             </span>
-            <div>
-              <div style="font-weight:700;">Portfolio</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px;">nikshep.vercel.app</div>
-            </div>
+            <div><div style="font-weight:700;">Portfolio</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px;">nikshep.vercel.app</div></div>
             <span class="builder-link-arr">↗</span>
           </a>
         </div>
@@ -720,22 +795,48 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
     </div>
   </section>
 
-  <footer class="lpf">
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px;"><span style="font-size:20px;">🎬</span>VidVault</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.25);">© 2025 VidVault · Built by Nikshep Doggalli</div>
-    </div>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;">
-      <a class="lpflink" href="https://instagram.com/nikkk.exe" target="_blank" rel="noopener">◈ Instagram</a>
-      <a class="lpflink" href="https://nikshep.vercel.app" target="_blank" rel="noopener">🌐 Portfolio</a>
+  <!-- ── FOOTER BENTO ── -->
+  <footer class="lp-footer">
+    <div class="footer-bento">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-logo"><span style="font-size:22px;">🎬</span><span class="footer-brand-name">VidVault</span></div>
+          <div class="footer-brand-desc">Your personal video library with deadlines, playlists, and analytics. Built for intentional watching.</div>
+          <div style="display:flex;gap:8px;">
+            <a class="footer-social" href="https://instagram.com/nikkk.exe" target="_blank" rel="noopener">◈</a>
+            <a class="footer-social" href="https://nikshep.vercel.app" target="_blank" rel="noopener">🌐</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Product</div>
+          <span class="footer-link" onclick="startOnboarding()">Get Started</span>
+          <span class="footer-link" onclick="document.getElementById('lp-about').scrollIntoView({behavior:'smooth'})">Features</span>
+          <span class="footer-link" onclick="document.getElementById('lp-builder').scrollIntoView({behavior:'smooth'})">About Builder</span>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <span class="footer-link" onclick="showToast('Privacy Policy — coming soon')">Privacy Policy</span>
+          <span class="footer-link" onclick="showToast('Terms of Use — coming soon')">Terms of Use</span>
+          <span class="footer-link" onclick="showToast('Cookie Policy — coming soon')">Cookie Policy</span>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Help</div>
+          <span class="footer-link" onclick="showToast('FAQ — coming soon')">FAQ</span>
+          <span class="footer-link" onclick="showToast('Contact — instagram.com/nikkk.exe')">Contact</span>
+          <span class="footer-link" onclick="startOnboarding()">How it works</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 VidVault · Built with ❤️ by Nikshep Doggalli</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.15);">No ads. No algorithm. Just your videos.</div>
+      </div>
     </div>
   </footer>
 
-  <!-- ONBOARDING MODAL -->
+  <!-- ── ONBOARDING MODAL ── -->
   <div class="onb-overlay" id="onb-overlay">
     <div class="onb-modal">
       <button class="onb-close" onclick="closeOnboarding()">✕</button>
-
       <div class="onb-dots" id="onb-dots">
         <div class="onb-dot active"></div>
         <div class="onb-dot"></div>
@@ -745,27 +846,22 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <div class="onb-dot"></div>
       </div>
 
-      <!-- Card 0: Welcome -->
       <div class="onb-card active" id="onb-0" style="display:block;">
         <span class="onb-icon">🎬</span>
         <div class="onb-tag" style="background:rgba(123,143,239,.15);color:#8b9ef4;">WELCOME</div>
         <div class="onb-title">VidVault is your video library</div>
         <div class="onb-text">Stop saving videos in tabs you'll never open. VidVault gives every saved video a deadline — so you actually watch what matters.</div>
-        <div class="onb-nav">
-          <button class="onb-next" onclick="onbNext()">Next →</button>
-        </div>
+        <div class="onb-nav"><button class="onb-next" onclick="onbNext()">Next →</button></div>
       </div>
 
-      <!-- Card 1: Save videos -->
       <div class="onb-card" id="onb-1" style="display:none;">
         <span class="onb-icon">🌐</span>
         <div class="onb-tag" style="background:rgba(255,80,180,.12);color:#ff70cc;">PLATFORMS</div>
         <div class="onb-title">4 platforms, one library</div>
-        <div class="onb-text">Paste any YouTube, Instagram, or X link — VidVault auto-detects and saves it to your library with thumbnail and metadata.</div>
+        <div class="onb-text">Paste any YouTube, Instagram, or X link — VidVault auto-detects and saves it with thumbnail and metadata.</div>
         <div class="onb-viz">
           <div class="onb-plats">
             <div class="onb-plat" style="color:#ff453a;border-color:#ff453a30;background:#ff453a0d;">▶ YouTube</div>
-            <div class="onb-plat" style="color:#f5a623;border-color:#f5a62330;background:#f5a6230d;">✦ xHamster</div>
             <div class="onb-plat" style="color:#e1306c;border-color:#e1306c30;background:#e1306c0d;">◈ Instagram</div>
             <div class="onb-plat" style="color:#aaa;border-color:#aaa3;background:rgba(255,255,255,.05);">✕ X</div>
           </div>
@@ -776,12 +872,11 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Card 2: Deadlines -->
       <div class="onb-card" id="onb-2" style="display:none;">
         <span class="onb-icon">⏰</span>
         <div class="onb-tag" style="background:rgba(255,149,0,.12);color:#ff9f0a;">DEADLINES</div>
         <div class="onb-title">Set it. Watch it. On time.</div>
-        <div class="onb-text">Every video gets a deadline. Green means you're fine. Orange means get moving. Red means you failed — again.</div>
+        <div class="onb-text">Every video gets a deadline. Green = fine. Orange = hurry. Red = you failed again.</div>
         <div class="onb-viz">
           <div class="onb-pbar-wrap">
             <div class="onb-prow" style="color:#30d158;">Rick Astley — Never Gonna…<div class="onb-ptrk"><div class="onb-pfill" style="width:100%;background:#30d158;"></div></div>14d</div>
@@ -795,7 +890,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Card 3: Playlists -->
       <div class="onb-card" id="onb-3" style="display:none;">
         <span class="onb-icon">📋</span>
         <div class="onb-tag" style="background:rgba(52,199,89,.12);color:#30d158;">PLAYLISTS</div>
@@ -814,7 +908,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Card 4: Analytics -->
       <div class="onb-card" id="onb-4" style="display:none;">
         <span class="onb-icon">📊</span>
         <div class="onb-tag" style="background:rgba(191,90,242,.14);color:#da8fff;">ANALYTICS</div>
@@ -837,7 +930,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
       </div>
 
-      <!-- Card 5: Google Sign In -->
       <div class="onb-card" id="onb-5" style="display:none;">
         <span class="onb-icon">🚀</span>
         <div class="onb-tag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);">YOU'RE READY</div>
@@ -851,7 +943,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
           <button class="onb-back" onclick="onbPrev()">← Back</button>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1261,7 +1352,8 @@ function goLanding(e){
 function toggleDark(){
   isDark=!isDark;
   document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
-  document.getElementById('tknob').textContent=isDark?'🌙':'☀️';
+  const knob=document.getElementById('tknob');if(knob)knob.textContent=isDark?'🌙':'☀️';
+  const lpbtn=document.getElementById('lp-theme-btn');if(lpbtn)lpbtn.textContent=isDark?'🌙':'☀️';
   if(chartInstance)rebuildChart();
 }
 
