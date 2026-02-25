@@ -34,7 +34,14 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 #pg-landing.active{display:block;}
 
 /* ── ANIMATIONS ── */
-@keyframes bgS{0%{filter:hue-rotate(0deg) brightness(1);}50%{filter:hue-rotate(10deg) brightness(1.06);}100%{filter:hue-rotate(-6deg) brightness(.96);}}
+@keyframes silverWave{
+  0%{background-position:0% 60%;background-size:300% 300%;}
+  25%{background-position:60% 30%;background-size:280% 320%;}
+  50%{background-position:100% 40%;background-size:320% 280%;}
+  75%{background-position:40% 70%;background-size:290% 310%;}
+  100%{background-position:0% 60%;background-size:300% 300%;}}
+@keyframes meshDrift{0%{transform:translate(0,0) rotate(0deg) skewX(0deg);}33%{transform:translate(2.5%,-3.5%) rotate(0.4deg) skewX(0.2deg);}66%{transform:translate(-1.5%,2%) rotate(-0.2deg) skewX(-0.1deg);}100%{transform:translate(0,0) rotate(0deg) skewX(0deg);}}
+@keyframes shimmerRun{0%{background-position:200% center;}100%{background-position:-200% center;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes slideDown{from{opacity:0;transform:translateY(-8px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
@@ -48,15 +55,57 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 @keyframes islandPop{0%{transform:translateX(-50%) scale(.96);}100%{transform:translateX(-50%) scale(1);}}
 
 /* ── LANDING ── */
+/* ── dark base ── */
+#pg-landing{background:#07070b !important;}
+
+/* Layer 0: static deep-dark base */
 .lp-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(50,60,200,.9) 0%,transparent 65%),
-             radial-gradient(ellipse 70% 50% at 85% 45%,rgba(180,30,200,.55) 0%,transparent 60%),
-             radial-gradient(ellipse 90% 70% at 15% 85%,rgba(255,50,130,.7) 0%,transparent 55%),
-             radial-gradient(ellipse 60% 60% at 50% 105%,rgba(255,90,20,.65) 0%,transparent 50%),#0a0a0a;
-  animation:bgS 14s ease-in-out infinite alternate;}
-.lp-noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px;}
+  background:#07070b;}
+
+/* Layer 1: silver radials — positions shift via --sy JS var on scroll */
+.lp-silver{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 130% 60% at 15% var(--sy1,10%),rgba(200,212,240,.13) 0%,transparent 60%),
+    radial-gradient(ellipse 90%  80% at 85% var(--sy2,50%),rgba(170,182,218,.10) 0%,transparent 58%),
+    radial-gradient(ellipse 140% 55% at 50% var(--sy3,88%),rgba(155,168,210,.08) 0%,transparent 56%),
+    radial-gradient(ellipse 75%  65% at 70% var(--sy4,22%),rgba(185,196,228,.07) 0%,transparent 52%),
+    radial-gradient(ellipse 60%  45% at 30% var(--sy5,65%),rgba(210,218,240,.06) 0%,transparent 50%);
+  will-change:background;}
+
+/* Layer 2: animated mesh — wavy diagonal silver bands */
+.lp-mesh{position:fixed;inset:-25%;width:150%;height:150%;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(132deg,transparent 0%,rgba(208,218,245,.055) 22%,rgba(182,196,232,.09) 44%,rgba(202,214,240,.06) 66%,transparent 88%),
+    linear-gradient(238deg,transparent 6%,rgba(175,188,224,.05) 30%,rgba(158,174,215,.055) 56%,transparent 80%),
+    linear-gradient(175deg,transparent 0%,rgba(220,228,250,.04) 35%,rgba(190,205,238,.07) 60%,transparent 85%);
+  background-size:300% 300%;
+  animation:silverWave 20s ease-in-out infinite,meshDrift 35s ease-in-out infinite;
+  animation-direction:alternate,alternate;}
+
+/* Layer 3: secondary slow wave — crossing the first */
+.lp-wave2{position:fixed;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(
+    118deg,
+    transparent 0%,
+    rgba(215,222,248,.045) 18%,
+    rgba(232,238,255,.08) 40%,
+    rgba(198,210,242,.05) 58%,
+    transparent 78%
+  );
+  background-size:240% 240%;
+  animation:silverWave 15s ease-in-out infinite reverse;}
+
+/* Layer 4: top shimmer line */
+.lp-shimmer{position:fixed;top:0;left:0;right:0;height:2px;z-index:6;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(210,220,255,.0) 8%,rgba(230,236,255,.55) 40%,rgba(248,250,255,.75) 50%,rgba(230,236,255,.55) 60%,rgba(210,220,255,.0) 92%,transparent 100%);
+  background-size:200% 100%;
+  animation:shimmerRun 7s linear infinite;
+  box-shadow:0 0 32px 8px rgba(200,212,255,.08);}
+
+/* Layer 5: noise grain for depth */
+.lp-noise{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px;}
 
 /* LP header — same feel as app island */
 .lp-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;
@@ -64,7 +113,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
   background:rgba(10,10,10,.65);backdrop-filter:blur(24px) saturate(160%);
   border-bottom:1px solid rgba(255,255,255,.08);}
 .lp-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
-.lp-logomark{width:30px;height:30px;background:linear-gradient(135deg,#ff6b6b,#ee00ff,#0080ff);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.lp-logomark{width:30px;height:30px;background:transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;}
 .lp-logotext{font-size:17px;font-weight:800;letter-spacing:-.5px;color:#fff;}
 .lp-nav{display:flex;align-items:center;gap:2px;margin-left:32px;flex:1;}
 .lp-ni{position:relative;display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:8px;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.75);cursor:pointer;transition:background .15s;user-select:none;white-space:nowrap;}
@@ -83,59 +132,62 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .btn-lpri{padding:7px 18px;background:#fff;border:none;border-radius:9px;font-family:var(--sf);font-size:13.5px;font-weight:700;color:#0a0a0a;cursor:pointer;transition:all .15s;}
 .btn-lpri:hover{background:#e8e8ed;}
 
-.lp-hero{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 40px 100px;text-align:center;}
-.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:99px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.78);margin-bottom:28px;backdrop-filter:blur(10px);}
-.htitle{font-size:clamp(44px,7vw,82px);font-weight:800;letter-spacing:-3px;line-height:1.02;color:#fff;max-width:860px;margin-bottom:22px;}
-.hsub{font-size:18px;color:rgba(255,255,255,.52);max-width:520px;line-height:1.65;margin-bottom:44px;}
-.hcta{display:flex;gap:12px;margin-bottom:70px;flex-wrap:wrap;justify-content:center;}
-.btn-hp{padding:14px 30px;background:#fff;color:#0a0a0a;border:none;border-radius:13px;font-family:var(--sf);font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 24px rgba(255,255,255,.22);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;}
-.btn-hp:hover{transform:scale(1.04);box-shadow:0 8px 32px rgba(255,255,255,.3);}
-.btn-hg{padding:14px 28px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.16);border-radius:13px;font-family:var(--sf);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s;}
-.btn-hg:hover{background:rgba(255,255,255,.14);}
+/* ── AUTH OVERLAY ── */
+#auth-overlay{position:fixed;inset:0;background:rgba(7,7,11,.92);backdrop-filter:blur(20px);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+#auth-overlay.show{display:flex;}
+.auth-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.auth-msg{font-size:15px;color:rgba(255,255,255,.7);font-weight:500;}
 
-/* BENTO */
-.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:13px;max-width:1060px;width:100%;}
-.bc{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px;transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s;overflow:hidden;position:relative;}
-.bc:hover{transform:translateY(-3px) scale(1.01);background:rgba(255,255,255,.08);}
-.bc1{grid-column:span 7;}.bc2{grid-column:span 5;}.bc3{grid-column:span 4;}.bc4{grid-column:span 4;}.bc5{grid-column:span 4;}
-.bc-icon{font-size:30px;margin-bottom:12px;display:block;}
-.bc-tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:700;text-transform:uppercase;margin-bottom:11px;}
-.bc-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:9px;line-height:1.2;}
-.bc-text{font-size:13.5px;color:rgba(255,255,255,.48);line-height:1.6;}
-.dl-viz{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
-.dl-br{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.55);}
-.dl-trk{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
-.dl-fill{height:100%;border-radius:99px;}
-.pc-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
-.pchp{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid;}
-.pl-mini{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
-.pl-mi{display:flex;align-items:center;gap:9px;padding:6px 10px;background:rgba(255,255,255,.05);border-radius:9px;font-size:12.5px;color:rgba(255,255,255,.65);}
-.pl-mi-bar{height:4px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;flex:1;}
-.pl-mi-fill{height:100%;border-radius:99px;background:#30d158;}
+.lp-hero{position:relative;z-index:10;min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px 60px;text-align:center;}
 
-/* LP SECTIONS */
-.lp-sec{position:relative;z-index:10;padding:90px 40px;max-width:1100px;margin:0 auto;}
-.sl2{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:14px;}
-.sec-title{font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.5px;color:#fff;margin-bottom:13px;line-height:1.1;}
-.sec-sub{font-size:16px;color:rgba(255,255,255,.48);max-width:500px;line-height:1.65;margin-bottom:44px;}
-.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.pc2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:30px;transition:transform .2s;position:relative;overflow:hidden;}
-.pc2:hover{transform:translateY(-4px);}
-.pc2.feat{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.07);}
-.pcbadge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:700;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);margin-bottom:18px;}
-.pcbadge.hot{background:linear-gradient(90deg,#ff6b6b,#ee00ff);color:#fff;}
-.pcp{font-size:46px;font-weight:800;letter-spacing:-2px;color:#fff;line-height:1;margin-bottom:5px;}
-.pcp span{font-size:16px;font-weight:500;color:rgba(255,255,255,.38);letter-spacing:0;}
-.pcd{font-size:14px;color:rgba(255,255,255,.43);margin-bottom:24px;line-height:1.5;}
-.pcfeats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.pcfeats li{font-size:13.5px;color:rgba(255,255,255,.68);display:flex;gap:9px;align-items:flex-start;}
-.pcfeats li::before{content:'✓';color:#30d158;font-weight:700;flex-shrink:0;}
-.pcc{width:100%;padding:11px;border-radius:9px;font-family:var(--sf);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;}
-.pcc.solid{background:#fff;border:none;color:#0a0a0a;}.pcc.solid:hover{background:#e8e8ed;}
-.pcc.ghost{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;}.pcc.ghost:hover{background:rgba(255,255,255,.13);}
-.cmg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:13px;}
-.cmc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;transition:transform .2s,background .15s;}
-.cmc:hover{transform:translateY(-3px);background:rgba(255,255,255,.07);}
+/* Giant title with typewriter */
+.tw-title{font-size:clamp(72px,12vw,160px);font-weight:900;letter-spacing:-6px;line-height:.92;color:#fff;margin-bottom:36px;min-height:1.1em;font-family:'DM Sans',sans-serif;}
+.tw-cursor{display:inline-block;width:5px;background:#fff;margin-left:4px;animation:blinkCursor .75s step-end infinite;vertical-align:text-bottom;border-radius:2px;}
+@keyframes blinkCursor{0%,100%{opacity:1;}50%{opacity:0;}}
+.lp-tagline{font-size:19px;color:rgba(255,255,255,.55);max-width:540px;line-height:1.65;margin-bottom:56px;font-weight:400;}
+.lp-tagline strong{color:rgba(255,255,255,.85);font-weight:600;}
+
+/* Mode toggle — exactly like the screenshot pill */
+.mode-toggle{display:flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px;gap:2px;margin-bottom:0;}
+.mode-btn{padding:11px 28px;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);letter-spacing:-.2px;}
+.mode-btn.active{background:#3b7eff;color:#fff;box-shadow:0 4px 20px rgba(59,126,255,.45);}
+.mode-btn.inactive{background:transparent;color:rgba(255,255,255,.45);}
+.mode-btn.inactive:hover{color:rgba(255,255,255,.75);}
+
+/* BENTO → ONBOARDING CARDS */
+.onb-outer{position:relative;z-index:10;width:100%;max-width:680px;margin:0 auto;padding:0 40px 100px;}
+.onb-card{background:rgba(255,255,255,.05);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:48px 52px;text-align:center;display:none;animation:cardIn .4s cubic-bezier(.34,1.56,.64,1);}
+.onb-card.active{display:block;}
+@keyframes cardIn{from{opacity:0;transform:scale(.94) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.onb-icon{font-size:56px;margin-bottom:24px;display:block;line-height:1;}
+.onb-tag{display:inline-block;padding:4px 14px;border-radius:99px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;}
+.onb-title{font-size:30px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-1px;line-height:1.1;}
+.onb-text{font-size:16px;color:rgba(255,255,255,.52);line-height:1.7;margin-bottom:36px;}
+.onb-viz{margin-bottom:32px;}
+/* progress dots */
+.onb-dots{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;}
+.onb-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.onb-dot.active{width:22px;border-radius:99px;background:#fff;}
+/* nav buttons */
+.onb-nav{display:flex;gap:12px;justify-content:center;align-items:center;}
+.onb-skip{font-size:13px;font-weight:500;color:rgba(255,255,255,.35);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .15s;padding:8px 0;}
+.onb-skip:hover{color:rgba(255,255,255,.7);}
+.onb-next{padding:13px 36px;background:#fff;color:#0a0a0a;border:none;border-radius:13px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;box-shadow:0 4px 24px rgba(255,255,255,.2);}
+.onb-next:hover{transform:scale(1.04);box-shadow:0 8px 32px rgba(255,255,255,.28);}
+.onb-next.finish{background:#3b7eff;color:#fff;box-shadow:0 4px 20px rgba(59,126,255,.4);}
+.onb-next.finish:hover{box-shadow:0 8px 32px rgba(59,126,255,.5);}
+
+/* mini viz inside cards */
+.onb-bars{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:60px;margin-bottom:8px;}
+.onb-bar{width:28px;border-radius:6px 6px 0 0;background:linear-gradient(to top,#3b7eff,#7eb3ff);}
+.onb-plats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.onb-plat{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:99px;font-size:13px;font-weight:700;border:1.5px solid;}
+.onb-pbar-wrap{display:flex;flex-direction:column;gap:10px;text-align:left;}
+.onb-prow{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.6);}
+.onb-ptrk{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
+.onb-pfill{height:100%;border-radius:99px;}
+
 .lpf{position:relative;z-index:10;padding:44px 40px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
 .lpflink{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;cursor:pointer;transition:color .15s;}
 .lpflink:hover{color:rgba(255,255,255,.85);}
@@ -144,23 +196,21 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .sd::after{content:'';position:absolute;width:4px;height:7px;background:rgba(255,255,255,.45);border-radius:99px;top:6px;left:50%;transform:translateX(-50%);animation:scrollDot 2s ease-in-out infinite;}
 
 /* ══════════════════════════════════════════
-   DYNAMIC ISLAND HEADER  (matches LP visual language)
+   APP HEADER  — identical to LP header
 ══════════════════════════════════════════ */
-.island-wrap{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:calc(100% - 32px);max-width:1080px;animation:islandPop .3s cubic-bezier(.34,1.56,.64,1);}
+.island-wrap{position:sticky;top:0;z-index:100;animation:fadeIn .22s ease;}
 
-/* Dark: full black-glass exactly like the LP sticky header */
-.island{display:flex;align-items:center;gap:4px;padding:0 18px;height:54px;
-  background:rgba(10,10,10,.68);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
-  border:1px solid rgba(255,255,255,.1);border-radius:18px;
-  box-shadow:0 8px 32px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.07);
-  transition:background .35s,border-color .35s;}
+.island{display:flex;align-items:center;gap:4px;padding:0 40px;height:62px;
+  background:rgba(10,10,10,.72);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .35s;}
 [data-theme="light"] .island{
-  background:rgba(255,255,255,.82);border-color:rgba(0,0,0,.1);
-  box-shadow:0 8px 32px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.9);}
+  background:rgba(255,255,255,.88);
+  border-bottom-color:rgba(0,0,0,.09);}
 
 /* Logo — same as LP logo */
 .ilogo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;margin-right:6px;}
-.ilogomark{width:30px;height:30px;background:linear-gradient(135deg,#ff6b6b,#ee00ff,#0080ff);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.ilogomark{width:30px;height:30px;background:transparent;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;}
 .ilogotext{font-size:17px;font-weight:800;letter-spacing:-.5px;color:var(--t1);}
 
 /* Nav tabs — same style as LP nav items */
@@ -219,15 +269,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 [data-theme="light"] .btn-builder:hover{background:rgba(0,0,0,.1);}
 
 /* ── NOTIF DROPDOWN ── */
-.notif-drop{position:absolute;top:calc(100% + 10px);right:0;width:320px;background:var(--surface);border:1px solid var(--bs);border-radius:16px;box-shadow:var(--shx);z-index:400;overflow:hidden;animation:slideDown .18s cubic-bezier(.34,1.56,.64,1);}
-.notif-hd{padding:13px 16px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--b);}
-.notif-title{font-size:15px;font-weight:700;color:var(--t1);}
-.notif-clear{font-size:11.5px;color:var(--acc);background:none;border:none;cursor:pointer;font-weight:600;font-family:var(--sf);}
-.notif-item{display:flex;align-items:flex-start;gap:10px;padding:11px 16px;border-bottom:1px solid var(--b);cursor:pointer;transition:background .12s;}
-.notif-item:hover{background:var(--s3);}
-.notif-item.unread{background:var(--acl);}
-.notif-item.unread:hover{background:var(--b);}
-.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:4px;}
+
 
 /* ── BUILDER CARD ── */
 .bcov{position:fixed;inset:0;z-index:900;display:none;}
@@ -244,7 +286,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 /* ══════════════════════════════════════════
    APP LAYOUT
 ══════════════════════════════════════════ */
-.app-body{display:flex;flex:1;overflow:hidden;padding-top:80px;}
+.app-body{display:flex;flex:1;overflow:hidden;}
 
 /* ── SIDEBAR — YouTube style ── */
 .sidebar{width:220px;flex-shrink:0;background:var(--s2);backdrop-filter:blur(20px);border-right:1px solid var(--b);display:flex;flex-direction:column;overflow:hidden;transition:background .35s;}
@@ -372,7 +414,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .ptab{padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:var(--t2);border:none;background:none;font-family:var(--sf);transition:all .15s;}
 .ptab.active{background:var(--surface);color:var(--t1);box-shadow:var(--sh);}
 .an-chart-sub{font-size:12px;color:var(--t3);margin-bottom:14px;}
-.chart-c{position:relative;height:200px;}
+.chart-c{position:relative;height:220px;width:100%;}
 .punc-card{background:var(--surface);border:1px solid var(--b);border-radius:16px;padding:20px;margin-bottom:16px;}
 .punc-score{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;font-size:13px;font-weight:700;margin-top:12px;}
 .hist-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;max-height:260px;overflow-y:auto;}
@@ -467,6 +509,10 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 <!-- ══════════════ LANDING ══════════════ -->
 <div id="pg-landing" class="active">
   <div class="lp-bg"></div>
+  <div class="lp-silver" id="lp-silver"></div>
+  <div class="lp-mesh"></div>
+  <div class="lp-wave2"></div>
+  <div class="lp-shimmer"></div>
   <div class="lp-noise"></div>
 
   <header class="lp-header">
@@ -475,130 +521,143 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       <span class="lp-logotext">VidVault</span>
     </a>
     <nav class="lp-nav">
-      <div class="lp-ni">Solutions <span class="lp-arr">▾</span>
-        <div class="lp-dd">
-          <div class="lp-ddi"><span class="ddi-icon">🎯</span><div><div class="ddi-lbl">Focused Watching</div><div class="ddi-sub">Eliminate impulse scrolling</div></div></div>
-          <div class="lp-ddi"><span class="ddi-icon">⏰</span><div><div class="ddi-lbl">Deadline Tracking</div><div class="ddi-sub">Watch before it's too late</div></div></div>
-          <div class="lp-ddi"><span class="ddi-icon">📊</span><div><div class="ddi-lbl">Analytics</div><div class="ddi-sub">Track your habits deeply</div></div></div>
-          <div class="lp-ddi"><span class="ddi-icon">🔗</span><div><div class="ddi-lbl">Share Playlists</div><div class="ddi-sub">Anyone can open via link</div></div></div>
-        </div>
-      </div>
-      <div class="lp-ni">Resources <span class="lp-arr">▾</span>
-        <div class="lp-dd">
-          <div class="lp-ddi"><span class="ddi-icon">📖</span><div><div class="ddi-lbl">Docs</div><div class="ddi-sub">How to use VidVault</div></div></div>
-          <div class="lp-ddi"><span class="ddi-icon">🎥</span><div><div class="ddi-lbl">Video Tour</div><div class="ddi-sub">3-minute walkthrough</div></div></div>
-          <div class="lp-ddi"><span class="ddi-icon">💡</span><div><div class="ddi-lbl">Tips & Shortcuts</div><div class="ddi-sub">Power user guide</div></div></div>
-        </div>
-      </div>
-      <div class="lp-ni" onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">Pricing</div>
-      <div class="lp-ni" onclick="document.getElementById('lp-community').scrollIntoView({behavior:'smooth'})">Community</div>
+      <div class="lp-ni" onclick="document.getElementById('onb-outer').scrollIntoView({behavior:'smooth'})">Features</div>
+      <div class="lp-ni" onclick="openApp()">Open App</div>
     </nav>
     <div class="lp-hr">
-      <button class="btn-lout" onclick="openApp()">Log in</button>
-      <button class="btn-lpri" onclick="openApp()">Get started</button>
+      <button class="btn-lout" onclick="signInWithGoogle()">Log in</button>
+      <button class="btn-lpri" onclick="signInWithGoogle()">Get started</button>
     </div>
   </header>
 
+  <!-- HERO — RupeeRewind style: giant typewriter + mode toggle -->
   <section class="lp-hero">
-    <div class="eyebrow">✦ Your videos. Your schedule. Your rules.</div>
-    <h1 class="htitle">Watch Intentionally,<br>Not Impulsively</h1>
-    <p class="hsub">One home for all your saved videos — YouTube, Instagram & X. Set deadlines, build playlists, track progress, share with anyone.</p>
-    <div class="hcta">
-      <button class="btn-hp" onclick="openApp()">Open VidVault — it's free</button>
-      <button class="btn-hg" onclick="document.getElementById('lp-features').scrollIntoView({behavior:'smooth'})">See how it works ↓</button>
+    <h1 class="tw-title" id="tw-title"><span id="tw-text"></span><span class="tw-cursor" id="tw-cursor"></span></h1>
+    <p class="lp-tagline">Welcome, <strong>Nikshep</strong>. One home for all your saved videos —<br>set deadlines, build playlists, watch intentionally.</p>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="signInWithGoogle()">Past to Present</button>
+      <button class="mode-btn inactive" onclick="signInWithGoogle()">Future Projection</button>
     </div>
-
-    <div class="bento" id="lp-features">
-      <div class="bc bc1">
-        <span class="bc-icon">🧠</span>
-        <div class="bc-tag" style="background:rgba(100,120,255,.18);color:#8899ff;">THE CORE IDEA</div>
-        <div class="bc-title">Beat impulse watching</div>
-        <div class="bc-text">Consciously save what matters, set a deadline, track progress. VidVault removes the algorithm trap.</div>
-        <div class="dl-viz">
-          <div class="dl-br"><span style="width:80px;">📺 Saved</span><div class="dl-trk"><div class="dl-fill" style="width:80%;background:rgba(120,130,255,.8);"></div></div><span>24</span></div>
-          <div class="dl-br"><span style="width:80px;">✅ Watched</span><div class="dl-trk"><div class="dl-fill" style="width:55%;background:#30d158;"></div></div><span>13</span></div>
-        </div>
-      </div>
-      <div class="bc bc2">
-        <span class="bc-icon">🌐</span>
-        <div class="bc-tag" style="background:rgba(255,80,180,.12);color:#ff70cc;">PLATFORMS</div>
-        <div class="bc-title">4 platforms, one library</div>
-        <div class="bc-text">No more tab-switching or losing videos.</div>
-        <div class="pc-row">
-          <div class="pchp" style="color:#ff3b30;border-color:#ff3b3030;background:#ff3b3010;">▶ YouTube</div>
-          <div class="pchp" style="color:#f5a623;border-color:#f5a62330;background:#f5a62310;">✦ xHamster</div>
-          <div class="pchp" style="color:#e1306c;border-color:#e1306c30;background:#e1306c10;">◈ Instagram</div>
-          <div class="pchp" style="color:#aaa;border-color:#aaa3;background:rgba(255,255,255,.05);">✕ X</div>
-        </div>
-      </div>
-      <div class="bc bc3">
-        <span class="bc-icon">📊</span>
-        <div class="bc-tag" style="background:rgba(191,90,242,.14);color:#da8fff;">ANALYTICS</div>
-        <div class="bc-title">Know your habits</div>
-        <div class="bc-text">Area charts, trends, and a punctuality score that tells you the truth — even if it hurts.</div>
-      </div>
-      <div class="bc bc4">
-        <span class="bc-icon">✅</span>
-        <div class="bc-tag" style="background:rgba(52,199,89,.12);color:#30d158;">PROGRESS</div>
-        <div class="bc-title">Mark & track watched</div>
-        <div class="bc-text">Videos get a ✓ overlay. Filter by watched or unwatched anytime.</div>
-        <div class="pl-mini">
-          <div class="pl-mi"><span>⭐ Favorites</span><div class="pl-mi-bar"><div class="pl-mi-fill" style="width:100%;"></div></div><span style="font-size:10px;opacity:.5;">2/2</span></div>
-          <div class="pl-mi"><span>🎵 Music</span><div class="pl-mi-bar"><div class="pl-mi-fill" style="width:67%;"></div></div><span style="font-size:10px;opacity:.5;">2/3</span></div>
-        </div>
-      </div>
-      <div class="bc bc5">
-        <span class="bc-icon">🔗</span>
-        <div class="bc-tag" style="background:rgba(255,149,0,.12);color:#ff9f0a;">SHARE</div>
-        <div class="bc-title">Share via URL hash</div>
-        <div class="bc-text">Encode playlists into a #data= link. Anyone opening it gets the full playlist imported instantly.</div>
-      </div>
-    </div>
-
-    <div class="scroll-ind"><div class="sd"></div><span>SCROLL</span></div>
   </section>
 
-  <div class="lp-sec" id="lp-pricing">
-    <div class="sl2">Pricing</div>
-    <h2 class="sec-title">Simple, honest pricing</h2>
-    <p class="sec-sub">VidVault is free. No subscriptions, no paywalls. Built with love.</p>
-    <div class="pg">
-      <div class="pc2">
-        <div class="pcbadge">Free Forever</div>
-        <div class="pcp">$0 <span>/ month</span></div>
-        <div class="pcd">Everything to take control of your video library.</div>
-        <ul class="pcfeats"><li>Unlimited video saves</li><li>4 platform support</li><li>Unlimited playlists</li><li>Deadline tracking</li><li>Analytics dashboard</li><li>Progress tracking</li><li>Shareable playlists</li></ul>
-        <button class="pcc solid" onclick="openApp()">Start using VidVault</button>
+  <!-- ONBOARDING CARDS -->
+  <div class="onb-outer" id="onb-outer">
+    <div class="onb-dots" id="onb-dots">
+      <div class="onb-dot active"></div>
+      <div class="onb-dot"></div>
+      <div class="onb-dot"></div>
+      <div class="onb-dot"></div>
+      <div class="onb-dot"></div>
+    </div>
+
+    <!-- Card 1: Core Idea -->
+    <div class="onb-card active" id="onb-0">
+      <span class="onb-icon">🧠</span>
+      <div class="onb-tag" style="background:rgba(100,120,255,.18);color:#8899ff;">THE CORE IDEA</div>
+      <div class="onb-title">Beat impulse watching</div>
+      <div class="onb-text">Consciously save what matters. Set a deadline. Track your progress. VidVault removes the algorithm trap so you decide what you watch and when.</div>
+      <div class="onb-viz">
+        <div class="onb-pbar-wrap">
+          <div class="onb-prow">📺 Saved<div class="onb-ptrk"><div class="onb-pfill" style="width:80%;background:rgba(120,130,255,.8);"></div></div>24</div>
+          <div class="onb-prow">✅ Watched<div class="onb-ptrk"><div class="onb-pfill" style="width:54%;background:#30d158;"></div></div>13</div>
+          <div class="onb-prow">🔥 Overdue<div class="onb-ptrk"><div class="onb-pfill" style="width:12%;background:#ff453a;"></div></div>3</div>
+        </div>
       </div>
-      <div class="pc2 feat">
-        <div class="pcbadge hot">Coming Soon ✨</div>
-        <div class="pcp">$5 <span>/ month</span></div>
-        <div class="pcd">For power users who want to go deeper.</div>
-        <ul class="pcfeats"><li>Everything in Free</li><li>Cloud sync across devices</li><li>Browser extension</li><li>Push deadline reminders</li><li>Priority support</li></ul>
-        <button class="pcc ghost">Get notified</button>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="skipOnboarding()">Skip tour</button>
+        <button class="onb-next" onclick="onbNext()">Next →</button>
       </div>
     </div>
-  </div>
 
-  <div class="lp-sec" id="lp-community" style="padding-top:0">
-    <div class="sl2">Community</div>
-    <h2 class="sec-title">Loved by intentional viewers</h2>
-    <div class="cmg">
-      <div class="cmc"><div style="width:38px;height:38px;border-radius:50%;background:rgba(255,80,120,.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;">🎨</div><div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;">Priya Mehta</div><div style="font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;">@priya_designs</div><div style="color:#ffcc00;font-size:12px;margin-bottom:9px;">★★★★★</div><div style="font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.6;">"The analytics called me out. Went from 20% on-time to 85% in a month."</div></div>
-      <div class="cmc"><div style="width:38px;height:38px;border-radius:50%;background:rgba(50,150,255,.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;">🧑‍💻</div><div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;">Arjun Sharma</div><div style="font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;">@arjun.codes</div><div style="color:#ffcc00;font-size:12px;margin-bottom:9px;">★★★★★</div><div style="font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.6;">"Imported my YouTube playlist in seconds. All videos, one shot."</div></div>
-      <div class="cmc"><div style="width:38px;height:38px;border-radius:50%;background:rgba(52,199,89,.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;">📚</div><div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;">Rahul Nair</div><div style="font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;">@rahulnair</div><div style="color:#ffcc00;font-size:12px;margin-bottom:9px;">★★★★★</div><div style="font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.6;">"Playlist share via URL is something I didn't know I needed."</div></div>
-      <div class="cmc"><div style="width:38px;height:38px;border-radius:50%;background:rgba(255,149,0,.15);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;">🎯</div><div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;">Sneha Patel</div><div style="font-size:12px;color:rgba(255,255,255,.32);margin-bottom:10px;">@sneha.builds</div><div style="color:#ffcc00;font-size:12px;margin-bottom:9px;">★★★★★</div><div style="font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.6;">"Due-soon banner saved me from missing 3 videos this week."</div></div>
+    <!-- Card 2: Platforms -->
+    <div class="onb-card" id="onb-1">
+      <span class="onb-icon">🌐</span>
+      <div class="onb-tag" style="background:rgba(255,80,180,.14);color:#ff70cc;">PLATFORMS</div>
+      <div class="onb-title">4 platforms, one library</div>
+      <div class="onb-text">Save videos from YouTube, xHamster, Instagram, and X — all in one unified library. No more scattered tabs or lost links.</div>
+      <div class="onb-viz">
+        <div class="onb-plats">
+          <div class="onb-plat" style="color:#ff453a;border-color:#ff453a30;background:#ff453a0d;">▶ YouTube</div>
+          <div class="onb-plat" style="color:#f5a623;border-color:#f5a62330;background:#f5a6230d;">✦ xHamster</div>
+          <div class="onb-plat" style="color:#e1306c;border-color:#e1306c30;background:#e1306c0d;">◈ Instagram</div>
+          <div class="onb-plat" style="color:#aaa;border-color:#aaa3;background:rgba(255,255,255,.05);">✕ X</div>
+        </div>
+      </div>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="onbPrev()">← Back</button>
+        <button class="onb-next" onclick="onbNext()">Next →</button>
+      </div>
+    </div>
+
+    <!-- Card 3: Deadlines -->
+    <div class="onb-card" id="onb-2">
+      <span class="onb-icon">⏰</span>
+      <div class="onb-tag" style="background:rgba(255,149,0,.14);color:#ff9f0a;">DEADLINES</div>
+      <div class="onb-title">Set it. Watch it. On time.</div>
+      <div class="onb-text">Assign a watch deadline to every video. Get color-coded urgency indicators — green when you have time, red when you're about to miss it.</div>
+      <div class="onb-viz">
+        <div class="onb-pbar-wrap">
+          <div class="onb-prow" style="color:#30d158;">Rick Astley — Never Gonna…<div class="onb-ptrk"><div class="onb-pfill" style="width:100%;background:#30d158;"></div></div>14d</div>
+          <div class="onb-prow" style="color:#ff9f0a;">PSY — Gangnam Style<div class="onb-ptrk"><div class="onb-pfill" style="width:40%;background:#ff9f0a;"></div></div>2d</div>
+          <div class="onb-prow" style="color:#ff453a;">Ed Sheeran — Shape of You<div class="onb-ptrk"><div class="onb-pfill" style="width:100%;background:#ff453a;"></div></div>OVERDUE</div>
+        </div>
+      </div>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="onbPrev()">← Back</button>
+        <button class="onb-next" onclick="onbNext()">Next →</button>
+      </div>
+    </div>
+
+    <!-- Card 4: Playlists -->
+    <div class="onb-card" id="onb-3">
+      <span class="onb-icon">📋</span>
+      <div class="onb-tag" style="background:rgba(52,199,89,.14);color:#30d158;">PLAYLISTS</div>
+      <div class="onb-title">Curate & share playlists</div>
+      <div class="onb-text">Group videos into playlists, track completion per list, and share via a URL hash link — anyone opening it gets the whole playlist imported instantly.</div>
+      <div class="onb-viz">
+        <div class="onb-pbar-wrap">
+          <div class="onb-prow">⭐ Favorites<div class="onb-ptrk"><div class="onb-pfill" style="width:100%;background:#30d158;"></div></div>2/2</div>
+          <div class="onb-prow">🎵 Music<div class="onb-ptrk"><div class="onb-pfill" style="width:67%;background:#3b7eff;"></div></div>2/3</div>
+          <div class="onb-prow">📚 Learn<div class="onb-ptrk"><div class="onb-pfill" style="width:20%;background:#da8fff;"></div></div>1/5</div>
+        </div>
+      </div>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="onbPrev()">← Back</button>
+        <button class="onb-next" onclick="onbNext()">Next →</button>
+      </div>
+    </div>
+
+    <!-- Card 5: Analytics -->
+    <div class="onb-card" id="onb-4">
+      <span class="onb-icon">📊</span>
+      <div class="onb-tag" style="background:rgba(191,90,242,.16);color:#da8fff;">ANALYTICS</div>
+      <div class="onb-title">Know your habits</div>
+      <div class="onb-text">Area charts, watch trends, and a brutally honest punctuality score. It tracks whether you actually watched before the deadline — and tells you exactly how bad you're doing.</div>
+      <div class="onb-viz">
+        <div class="onb-bars">
+          <div class="onb-bar" style="height:30%;opacity:.5;"></div>
+          <div class="onb-bar" style="height:55%;opacity:.6;"></div>
+          <div class="onb-bar" style="height:40%;opacity:.6;"></div>
+          <div class="onb-bar" style="height:80%;opacity:.8;"></div>
+          <div class="onb-bar" style="height:60%;opacity:.7;"></div>
+          <div class="onb-bar" style="height:100%;"></div>
+          <div class="onb-bar" style="height:75%;opacity:.85;"></div>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);text-align:center;">Watch activity this week</div>
+      </div>
+      <div class="onb-nav">
+        <button class="onb-skip" onclick="onbPrev()">← Back</button>
+        <button class="onb-next finish" onclick="openApp()">Open VidVault →</button>
+      </div>
     </div>
   </div>
 
   <footer class="lpf">
     <div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;"><div class="lp-logomark" style="width:22px;height:22px;font-size:11px;">🎬</div>VidVault</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;"><span style="font-size:20px;">🎬</span>VidVault</div>
       <div style="font-size:12px;color:rgba(255,255,255,.28);">© 2025 VidVault · Built by Nikshep Doggalli</div>
     </div>
     <div style="display:flex;gap:18px;flex-wrap:wrap;">
-      <span class="lpflink" onclick="document.getElementById('lp-pricing').scrollIntoView({behavior:'smooth'})">Pricing</span>
-      <span class="lpflink" onclick="document.getElementById('lp-community').scrollIntoView({behavior:'smooth'})">Community</span>
       <a class="lpflink" href="https://instagram.com/nikkk.exe" target="_blank" rel="noopener">◈ @nikkk.exe</a>
     </div>
     <div style="font-size:12px;color:rgba(255,255,255,.28);">🥷 builder · Nikshep Doggalli</div>
@@ -608,7 +667,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 <!-- ══════════════ APP ══════════════ -->
 <div id="pg-app" class="page">
 
-  <!-- DYNAMIC ISLAND HEADER -->
+  <!-- APP HEADER — same style as landing page header -->
   <div class="island-wrap">
     <div class="island">
       <!-- Logo — matches LP logo exactly -->
@@ -650,20 +709,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <div class="search-results-drop" id="search-results" style="display:none;"></div>
       </div>
 
-      <!-- YouTube-style bell notifications -->
-      <div style="position:relative;">
-        <button class="iicon-btn" onclick="toggleNotif()" title="Notifications">
-          🔔
-          <span class="badge" id="notif-badge" style="display:none;">0</span>
-        </button>
-        <div class="notif-drop" id="notif-drop" style="display:none;">
-          <div class="notif-hd">
-            <span class="notif-title">Notifications</span>
-            <button class="notif-clear" onclick="markAllRead()">Mark all read</button>
-          </div>
-          <div id="notif-list"></div>
-        </div>
-      </div>
 
       <!-- Dark toggle -->
       <button class="dtog" onclick="toggleDark()" title="Toggle theme">
@@ -672,6 +717,12 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
       <!-- Add Video — primary button same as LP -->
       <button class="btn-addvid" onclick="openAdd()">+ Add Video</button>
+
+      <!-- User Avatar -->
+      <div id="user-avatar-wrap" style="display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="signOutUser()" title="Sign out">
+        <img id="user-avatar-img" src="" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2);display:none;">
+        <span id="user-avatar-fallback" style="width:28px;height:28px;border-radius:50%;background:var(--acc);display:none;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;"></span>
+      </div>
 
       <!-- Builder -->
       <button class="btn-builder" onclick="toggleBC()">builder 🥷</button>
@@ -977,12 +1028,7 @@ let watchHistory=[
   {vidId:'v5',watchedAt:ts(6),onTime:true,deadline:null},
   {vidId:'v4',watchedAt:ts(8),onTime:false,deadline:null},
 ];
-let notifications=[
-  {id:'n1',text:'Rick Astley is due TOMORROW! Don\'t miss it.',time:'2 hours ago',read:false,emoji:'🔥'},
-  {id:'n2',text:'Playlist \'Favorites\' is 50% complete. Keep going!',time:'Yesterday',read:false,emoji:'🎯'},
-  {id:'n3',text:'Shape of You — marked watched. On time ✓',time:'3 days ago',read:true,emoji:'✅'},
-  {id:'n4',text:'You imported 0 videos this week. Time to save some!',time:'5 days ago',read:true,emoji:'📥'},
-];
+
 
 let currentView='all';
 let currentFilter='all';
@@ -1061,28 +1107,7 @@ function onSearch(q){
   res.style.display='block';
 }
 
-/* ══════════════════════════════════════════
-   NOTIFICATIONS
-══════════════════════════════════════════ */
-function toggleNotif(){
-  const d=document.getElementById('notif-drop');
-  d.style.display=d.style.display==='block'?'none':'block';
-  if(d.style.display==='block')renderNotifs();
-}
-function renderNotifs(){
-  const unread=notifications.filter(n=>!n.read).length;
-  const badge=document.getElementById('notif-badge');
-  badge.textContent=unread;
-  badge.style.display=unread>0?'flex':'none';
-  document.getElementById('notif-list').innerHTML=notifications.map(n=>`
-    <div class="notif-item ${n.read?'':'unread'}" onclick="readNotif('${n.id}')">
-      <span style="font-size:20px;flex-shrink:0;">${n.emoji}</span>
-      <div style="flex:1;"><div style="font-size:13px;color:var(--t1);line-height:1.45;font-weight:${n.read?400:600};">${esc(n.text)}</div><div style="font-size:11px;color:var(--t3);margin-top:3px;">${n.time}</div></div>
-      ${!n.read?`<div class="notif-dot"></div>`:''}
-    </div>`).join('');
-}
-function readNotif(id){notifications=notifications.map(n=>n.id===id?{...n,read:true}:n);renderNotifs();}
-function markAllRead(){notifications=notifications.map(n=>({...n,read:true}));renderNotifs();}
+
 
 /* ══════════════════════════════════════════
    VIEW ROUTING
@@ -1321,7 +1346,7 @@ function renderGrid(){
   }).join('');
 }
 
-function render(){renderSidebar();renderDueBanner();renderPlStats();renderGrid();renderNotifs();}
+function render(){renderSidebar();renderDueBanner();renderPlStats();renderGrid();}
 
 /* ══════════════════════════════════════════
    MARK WATCHED
@@ -1467,7 +1492,7 @@ function rebuildChart(){
   const tc=dark?'rgba(255,255,255,.4)':'rgba(0,0,0,.4)';
   const ac=dark?'#2997ff':'#0071e3';
   const ctx=canvas.getContext('2d');
-  const grad=ctx.createLinearGradient(0,0,0,canvas.offsetHeight||200);
+  const grad=ctx.createLinearGradient(0,0,0,canvas.offsetHeight||220);
   grad.addColorStop(0,ac+'55');grad.addColorStop(.5,ac+'18');grad.addColorStop(1,ac+'00');
   chartInstance=new Chart(canvas,{
     type:'line',
@@ -1712,7 +1737,7 @@ function toggleDD(id,e){
   if(!wasOpen&&dd)dd.style.display='block';
 }
 function closeAllDD(){document.querySelectorAll('.dd-menu').forEach(d=>d.style.display='none');}
-document.addEventListener('click',()=>{closeAllDD();document.getElementById('notif-drop').style.display='none';document.getElementById('search-results').style.display='none';});
+document.addEventListener('click',()=>{closeAllDD();document.getElementById('search-results').style.display='none';});
 
 /* ══════════════════════════════════════════
    BUILDER CARD
@@ -1749,6 +1774,143 @@ document.addEventListener('keydown',e=>{
 ══════════════════════════════════════════ */
 if(window.location.hash.startsWith('#data=')){openApp();}
 render();
+
+// ── Typewriter effect ──
+(function(){
+  const phrases = ['VidVault','Watch Smart','Beat the Feed','Your Library','Own Your Time'];
+  let pi=0, ci=0, deleting=false, pauseFrames=0;
+  const el=document.getElementById('tw-text');
+  const cursor=document.getElementById('tw-cursor');
+  if(!el)return;
+  function tick(){
+    const phrase=phrases[pi];
+    if(pauseFrames>0){pauseFrames--;setTimeout(tick,80);return;}
+    if(!deleting){
+      el.textContent=phrase.slice(0,ci+1);ci++;
+      if(ci===phrase.length){deleting=true;pauseFrames=28;setTimeout(tick,80);}
+      else setTimeout(tick,90+(Math.random()*40-20));
+    }else{
+      el.textContent=phrase.slice(0,ci-1);ci--;
+      if(ci===0){deleting=false;pi=(pi+1)%phrases.length;pauseFrames=6;setTimeout(tick,80);}
+      else setTimeout(tick,45);
+    }
+  }
+  setTimeout(tick,400);
+})();
+
+// ── Onboarding cards ──
+let onbIdx=0;
+const ONB_TOTAL=5;
+function onbNext(){
+  if(onbIdx>=ONB_TOTAL-1){openApp();return;}
+  document.getElementById('onb-'+onbIdx).classList.remove('active');
+  onbIdx++;
+  document.getElementById('onb-'+onbIdx).classList.add('active');
+  updateOnbDots();
+}
+function onbPrev(){
+  if(onbIdx===0)return;
+  document.getElementById('onb-'+onbIdx).classList.remove('active');
+  onbIdx--;
+  document.getElementById('onb-'+onbIdx).classList.add('active');
+  updateOnbDots();
+}
+function updateOnbDots(){
+  document.querySelectorAll('.onb-dot').forEach((d,i)=>d.classList.toggle('active',i===onbIdx));
+}
+function skipOnboarding(){openApp();}
+
+// ── Landing gradient parallax on scroll ──
+(function(){
+  var lp = document.getElementById('pg-landing');
+  var silver = document.getElementById('lp-silver');
+  if(!lp || !silver) return;
+  lp.addEventListener('scroll', function(){
+    var sp = lp.scrollTop;
+    var maxScroll = lp.scrollHeight - lp.clientHeight;
+    var progress = maxScroll > 0 ? sp / maxScroll : 0;
+    var pct = sp * 0.035;
+    // Radials drift at different speeds creating parallax depth
+    silver.style.setProperty('--sy1', (10 - pct*0.9) + '%');
+    silver.style.setProperty('--sy2', (50 + pct*0.4) + '%');
+    silver.style.setProperty('--sy3', (88 - pct*0.25) + '%');
+    silver.style.setProperty('--sy4', (22 + pct*0.7) + '%');
+    silver.style.setProperty('--sy5', (65 - pct*0.55) + '%');
+  }, {passive:true});
+})();
 </script>
+<!-- AUTH OVERLAY -->
+<div id="auth-overlay">
+  <div class="auth-spinner"></div>
+  <div class="auth-msg">Signing you in…</div>
+</div>
+
+<!-- FIREBASE AUTH -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBuPTw6WpRTWSDhs_L_W9OELFP6ff6Ki0c",
+    authDomain: "copiumai-9f5b6.firebaseapp.com",
+    projectId: "copiumai-9f5b6",
+    storageBucket: "copiumai-9f5b6.firebasestorage.app",
+    messagingSenderId: "164793994267",
+    appId: "1:164793994267:web:f9d3594cca736c7fa67cbe",
+    measurementId: "G-6D61YLK3TN"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  // Expose to global scope for onclick handlers
+  window.signInWithGoogle = async () => {
+    try {
+      document.getElementById('auth-overlay').classList.add('show');
+      const result = await signInWithPopup(auth, provider);
+      // onAuthStateChanged handles the rest
+    } catch(err) {
+      document.getElementById('auth-overlay').classList.remove('show');
+      console.error('Sign-in error:', err);
+      if(err.code !== 'auth/popup-closed-by-user') {
+        alert('Sign-in failed: ' + err.message);
+      }
+    }
+  };
+
+  window.signOutUser = async () => {
+    if(!confirm('Sign out of VidVault?')) return;
+    await signOut(auth);
+    document.getElementById('pg-app').classList.remove('active');
+    document.getElementById('pg-landing').classList.add('active');
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    document.getElementById('auth-overlay').classList.remove('show');
+    if(user) {
+      // Update avatar in app header
+      const img = document.getElementById('user-avatar-img');
+      const fallback = document.getElementById('user-avatar-fallback');
+      if(user.photoURL) {
+        img.src = user.photoURL;
+        img.style.display = 'block';
+        fallback.style.display = 'none';
+      } else {
+        fallback.textContent = (user.displayName || user.email || '?')[0].toUpperCase();
+        fallback.style.display = 'flex';
+        img.style.display = 'none';
+      }
+      // Update hero tagline with real name
+      const tagline = document.querySelector('.lp-tagline strong');
+      if(tagline) tagline.textContent = user.displayName ? user.displayName.split(' ')[0] : 'there';
+      // Enter app
+      window.openApp();
+    }
+  });
+</script>
+
 </body>
 </html>
