@@ -58,8 +58,8 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .li-theme:hover{background:rgba(255,255,255,.14);}
 
 /* builder popup */
-.lp-bento-ov{position:fixed;inset:0;z-index:1999;display:none;}
-.lp-bento-ov.active{display:block;}
+.lp-bento-ov{position:fixed;inset:0;z-index:1999;display:none;pointer-events:none;}
+.lp-bento-ov.active{display:block;pointer-events:all;}
 .lp-bento-card{position:fixed;top:80px;right:40px;width:300px;background:rgba(16,16,16,.97);border:1px solid rgba(255,255,255,.14);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.9);animation:slideDown .2s ease;}
 .lp-bento-ban{height:72px;background:linear-gradient(135deg,#1a1a2e,#0f3460);position:relative;display:flex;align-items:flex-end;padding:0 20px;}
 .lp-bento-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid rgba(255,255,255,.15);transform:translateY(50%);position:relative;z-index:1;}
@@ -69,6 +69,21 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .lp-bento-links{display:flex;flex-direction:column;gap:7px;}
 .lp-bento-link{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:10px;text-decoration:none;color:rgba(255,255,255,.72);font-size:12.5px;font-weight:600;transition:all .13s;}
 .lp-bento-link:hover{background:rgba(255,255,255,.1);color:#fff;}
+
+
+/* ── INFO MODAL ── */
+.info-modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(20px);z-index:9000;display:none;align-items:center;justify-content:center;padding:24px;}
+.info-modal-ov.active{display:flex;}
+.info-modal{background:#111;border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:40px;width:100%;max-width:560px;position:relative;animation:mdIn .3s cubic-bezier(.34,1.56,.64,1);max-height:80vh;overflow-y:auto;}
+.info-modal-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.info-modal-close:hover{background:rgba(255,255,255,.14);color:#fff;}
+.info-modal-icon{font-size:36px;margin-bottom:16px;line-height:1;}
+.info-modal-title{font-size:24px;font-weight:900;color:#fff;letter-spacing:-.6px;margin-bottom:20px;}
+.info-modal-body{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;}
+.info-modal-body h3{font-size:14px;font-weight:700;color:#fff;margin:20px 0 8px;letter-spacing:-.2px;}
+.info-modal-body p{margin-bottom:12px;}
+.info-modal-body a{color:#7b8fef;text-decoration:none;}
+.info-modal-body a:hover{text-decoration:underline;}
 
 /* ── AUTH OVERLAY ── */
 #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
@@ -80,8 +95,9 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 /* ── HERO — pitch black, typewriter ── */
 .lp-hero{position:relative;z-index:10;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 40px;text-align:center;}
 .tw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.3);margin-bottom:24px;animation:fadeUp .8s ease both;}
-.tw-title{font-size:clamp(56px,10vw,140px);font-weight:900;letter-spacing:-4px;line-height:.9;color:#fff !important;-webkit-text-fill-color:#fff !important;margin-bottom:0;min-height:1.1em;font-family:'DM Sans',sans-serif;}
-.tw-cursor{display:inline-block;width:4px;height:.82em;background:#fff;margin-left:6px;animation:blinkCursor .65s step-end infinite;vertical-align:middle;border-radius:2px;}
+.tw-title{font-size:clamp(56px,10vw,140px);font-weight:900;letter-spacing:-4px;line-height:.9;margin-bottom:0;min-height:1.1em;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#fff 0%,#c8d0e8 40%,#fff 60%,#a8b4cc 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:silverShimmer 4s linear infinite;}
+@keyframes silverShimmer{0%{background-position:0% center;}100%{background-position:300% center;}}
+.tw-cursor{display:inline-block;width:4px;height:.82em;background:linear-gradient(180deg,#fff,#c8d0e8);margin-left:6px;animation:blinkCursor .65s step-end infinite;vertical-align:middle;border-radius:2px;}
 @keyframes blinkCursor{0%,100%{opacity:1;}50%{opacity:0;}}
 .lp-hero-sub{font-size:18px;color:rgba(255,255,255,.38);margin-top:28px;font-weight:500;letter-spacing:-.2px;}
 
@@ -171,16 +187,16 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .footer-brand{padding:36px;border-right:1px solid rgba(255,255,255,.07);}
 .footer-brand-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .footer-brand-name{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.5px;}
-.footer-brand-desc{font-size:13px;color:rgba(255,255,255,.32);line-height:1.65;margin-bottom:20px;}
+.footer-brand-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:20px;}
 .footer-col{padding:36px 28px;border-right:1px solid rgba(255,255,255,.07);}
 .footer-col:last-child{border-right:none;}
-.footer-col-title{font-size:11px;font-weight:800;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
-.footer-link{display:block;font-size:13px;color:rgba(255,255,255,.45);font-weight:500;text-decoration:none;margin-bottom:10px;transition:color .15s;cursor:pointer;}
+.footer-col-title{font-size:11px;font-weight:800;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
+.footer-link{display:block;font-size:13.5px;color:rgba(255,255,255,.8);font-weight:500;text-decoration:none;margin-bottom:10px;transition:color .15s;cursor:pointer;}
 .footer-link:hover{color:#fff;}
 .footer-bottom{padding:20px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.2);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.55);}
 .footer-socials{display:flex;gap:10px;}
-.footer-social{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(255,255,255,.5);font-size:14px;transition:all .14s;}
+.footer-social{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(255,255,255,.8);font-size:14px;transition:all .14s;}
 .footer-social:hover{background:rgba(255,255,255,.12);color:#fff;}
 
 /* ── ONBOARDING MODAL ── */
@@ -815,20 +831,20 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         </div>
         <div class="footer-col">
           <div class="footer-col-title">Legal</div>
-          <span class="footer-link" onclick="showToast('Privacy Policy — coming soon')">Privacy Policy</span>
-          <span class="footer-link" onclick="showToast('Terms of Use — coming soon')">Terms of Use</span>
-          <span class="footer-link" onclick="showToast('Cookie Policy — coming soon')">Cookie Policy</span>
+          <span class="footer-link" onclick="openInfoModal('privacy')">Privacy Policy</span>
+          <span class="footer-link" onclick="openInfoModal('terms')">Terms of Use</span>
+          <span class="footer-link" onclick="openInfoModal('cookie')">Cookie Policy</span>
         </div>
         <div class="footer-col">
           <div class="footer-col-title">Help</div>
-          <span class="footer-link" onclick="showToast('FAQ — coming soon')">FAQ</span>
-          <span class="footer-link" onclick="showToast('Contact — instagram.com/nikkk.exe')">Contact</span>
-          <span class="footer-link" onclick="startOnboarding()">How it works</span>
+          <span class="footer-link" onclick="openInfoModal('faq')">FAQ</span>
+          <span class="footer-link" onclick="openInfoModal('contact')">Contact</span>
+          <span class="footer-link" onclick="openInfoModal('hiw')">How it works</span>
         </div>
       </div>
       <div class="footer-bottom">
         <div class="footer-copy">© 2025 VidVault · Built with ❤️ by Nikshep Doggalli</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.15);">No ads. No algorithm. Just your videos.</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45);">No ads. No algorithm. Just your videos.</div>
       </div>
     </div>
   </footer>
@@ -2129,6 +2145,109 @@ function updateOnbDots(){
 
 // ── LP Builder bento toggle ──
 
+
+/* ══════════════════════════════════════════
+   INFO MODAL — FAQ, Privacy, Cookie, Contact, HIW
+══════════════════════════════════════════ */
+const INFO_CONTENT = {
+  faq: {
+    icon: '❓',
+    title: 'Frequently Asked Questions',
+    body: `
+      <h3>What is VidVault?</h3>
+      <p>VidVault is a personal video library that lets you save videos from YouTube, Instagram, and X with deadlines so you actually watch them. No algorithm, no infinite scroll — just your curated list.</p>
+      <h3>Is VidVault free?</h3>
+      <p>Yes, completely free. Sign in with Google and your library is saved automatically. No subscriptions, no hidden fees, no premium tier.</p>
+      <h3>Which platforms are supported?</h3>
+      <p>YouTube, Instagram Reels &amp; posts, and X (Twitter) video links. Just paste the URL and VidVault handles the rest — auto-detecting the platform and pulling the thumbnail.</p>
+      <h3>Does my data sync across devices?</h3>
+      <p>Yes. Sign in with the same Google account on any device and your full library, playlists, and watch history are there instantly. Everything is stored securely in the cloud.</p>
+    `
+  },
+  privacy: {
+    icon: '🔒',
+    title: 'Privacy Policy',
+    body: `
+      <h3>What data do we collect?</h3>
+      <p>We collect only what's needed to make VidVault work: your Google account name, email, and profile photo (via Google Sign-In), and the videos you save along with their deadlines and playlist assignments.</p>
+      <h3>How is your data stored?</h3>
+      <p>All data is stored securely in Google Firebase Firestore, a cloud database with industry-standard encryption at rest and in transit. We never sell or share your data with third parties.</p>
+      <h3>Do we use analytics or tracking?</h3>
+      <p>We use Firebase Analytics to understand how people use VidVault in aggregate — things like which features are popular. No personally identifiable usage data is tracked or sold to advertisers.</p>
+      <h3>Your rights</h3>
+      <p>You can delete your account and all associated data at any time by contacting us at <a href="https://instagram.com/nikkk.exe" target="_blank">@nikkk.exe</a>. We'll permanently remove everything within 48 hours.</p>
+    `
+  },
+  terms: {
+    icon: '📄',
+    title: 'Terms of Use',
+    body: `
+      <h3>Acceptable use</h3>
+      <p>VidVault is for personal, non-commercial use. You may save links to publicly available videos. Do not use VidVault to infringe on copyright or to store links to illegal content.</p>
+      <h3>Your content</h3>
+      <p>You retain ownership of any data you add to VidVault. We don't claim rights over your library, playlists, or notes. By using VidVault, you grant us permission to store and display this data to you.</p>
+      <h3>Service availability</h3>
+      <p>VidVault is provided as-is. We make no guarantees of uptime or availability. We may update, change, or discontinue features at any time, though we'll always try to give advance notice for major changes.</p>
+      <h3>Contact</h3>
+      <p>For questions about these terms, reach out at <a href="https://instagram.com/nikkk.exe" target="_blank">@nikkk.exe on Instagram</a>.</p>
+    `
+  },
+  cookie: {
+    icon: '🍪',
+    title: 'Cookie Policy',
+    body: `
+      <h3>What cookies do we use?</h3>
+      <p>VidVault uses only essential cookies required for authentication. When you sign in with Google, Firebase sets a session cookie to keep you logged in across page visits. No tracking or advertising cookies are used.</p>
+      <h3>Third-party cookies</h3>
+      <p>Google Sign-In may set its own cookies governed by Google's privacy policy. We don't control these but they are limited to authentication purposes only.</p>
+      <h3>Local storage</h3>
+      <p>VidVault uses your browser's local storage to save UI preferences like dark/light mode so your settings persist between sessions. This data never leaves your device.</p>
+      <h3>Managing cookies</h3>
+      <p>You can clear cookies and local storage at any time through your browser settings. Note that clearing them will sign you out and reset your preferences.</p>
+    `
+  },
+  contact: {
+    icon: '✉️',
+    title: 'Contact',
+    body: `
+      <h3>Built by Nikshep Doggalli</h3>
+      <p>VidVault is an indie project. If you have feedback, bug reports, feature requests, or just want to say hi — I'd genuinely love to hear from you.</p>
+      <h3>Instagram</h3>
+      <p>The fastest way to reach me: <a href="https://instagram.com/nikkk.exe" target="_blank">@nikkk.exe</a> on Instagram. DMs are open.</p>
+      <h3>Portfolio</h3>
+      <p>See what else I'm building at <a href="https://nikshep.vercel.app" target="_blank">nikshep.vercel.app</a>. I ship tools for intentional people.</p>
+      <h3>Response time</h3>
+      <p>I usually respond within 24–48 hours. For urgent issues, Instagram is your best bet. I read every message.</p>
+    `
+  },
+  hiw: {
+    icon: '🚀',
+    title: 'How VidVault works',
+    body: `
+      <h3>Step 1 — Sign in with Google</h3>
+      <p>One click, no passwords. Your Google account creates your VidVault library instantly and syncs everything to the cloud so you can access it from any device.</p>
+      <h3>Step 2 — Paste a video link</h3>
+      <p>Hit "+ Add Video" and drop any YouTube, Instagram Reel, or X video URL. VidVault auto-detects the platform, fetches the thumbnail, and saves it to your library in seconds.</p>
+      <h3>Step 3 — Set a deadline</h3>
+      <p>Pick a date you actually intend to watch it by. Videos turn orange as the deadline approaches and red when overdue. The color-coding keeps you honest.</p>
+      <h3>Step 4 — Track &amp; improve</h3>
+      <p>Your analytics dashboard shows completion rates, a punctuality score, and watch trends over time. Use it to understand your habits and actually get better at them.</p>
+    `
+  }
+};
+
+function openInfoModal(key) {
+  const d = INFO_CONTENT[key];
+  if (!d) return;
+  document.getElementById('info-modal-icon').textContent = d.icon;
+  document.getElementById('info-modal-title').textContent = d.title;
+  document.getElementById('info-modal-body').innerHTML = d.body;
+  document.getElementById('info-modal-ov').classList.add('active');
+}
+function closeInfoModal() {
+  document.getElementById('info-modal-ov').classList.remove('active');
+}
+
 /* ══════════════════════════════════════════
    DOGGO GUIDE
 ══════════════════════════════════════════ */
@@ -2148,7 +2267,7 @@ const DOGGO_STEPS = [
   {
     step: 'Step 3 of 3',
     msg: '📋 Hit <strong>📋 Playlists</strong> in the nav, then <strong>+ New Playlist</strong> to group and share your videos!',
-    cta: 'Let's go! 🚀',
+    cta: "Let's go! 🚀",
     action: 'done'
   }
 ];
@@ -2182,7 +2301,7 @@ function doggoCTA() {
   const s = DOGGO_STEPS[doggoIdx];
   if (s.action === 'signin') { signInWithGoogle(); }
   else if (s.action === 'next') { doggoNext(); }
-  else if (s.action === 'done') { hideDoggo(); showToast('You're all set! Happy watching 🐾'); }
+  else if (s.action === 'done') { hideDoggo(); showToast("You're all set! Happy watching 🐾"); }
 }
 function doggoNext() {
   if (doggoIdx < DOGGO_STEPS.length - 1) {
@@ -2196,9 +2315,7 @@ function doggoNext() {
 function toggleLPBento(){document.getElementById('lp-bento-ov').classList.toggle('active');}
 function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove('active');}
 
-// ── Landing gradient parallax on scroll ──
-(function(){
-  // parallax removed — pitch black bg
+// ── Landing gradient parallax on scroll ── (removed, pitch black bg)
 </script>
 <!-- AUTH OVERLAY -->
 <div id="auth-overlay">
@@ -2252,6 +2369,17 @@ function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove(
     <!-- belly -->
     <rect x="5" y="9" width="6" height="3" fill="#f5ddb4"/>
   </svg>
+</div>
+
+
+<!-- ── INFO MODAL (FAQ, Privacy, etc) ── -->
+<div class="info-modal-ov" id="info-modal-ov" onclick="closeInfoModal()">
+  <div class="info-modal" onclick="event.stopPropagation()">
+    <button class="info-modal-close" onclick="closeInfoModal()">✕</button>
+    <div class="info-modal-icon" id="info-modal-icon"></div>
+    <div class="info-modal-title" id="info-modal-title"></div>
+    <div class="info-modal-body" id="info-modal-body"></div>
+  </div>
 </div>
 
 <!-- FIREBASE AUTH -->
