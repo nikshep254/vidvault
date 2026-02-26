@@ -340,7 +340,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
 /* macOS-style Spotlight search */
 .isearch-wrap{position:relative;}
-.isearch-btn{width:36px;height:36px;background:rgba(255,255,255,.1);border:none;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;color:var(--t2);transition:background .14s;flex-shrink:0;}
+.isearch-btn{width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;cursor:pointer;color:var(--t2);transition:background .14s;flex-shrink:0;}
 [data-theme="light"] .isearch-btn{background:rgba(0,0,0,.07);}
 .isearch-btn:hover{background:rgba(255,255,255,.18);}
 [data-theme="light"] .isearch-btn:hover{background:rgba(0,0,0,.12);}
@@ -382,7 +382,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 /* ── BUILDER CARD ── */
 .bcov{position:fixed;inset:0;z-index:900;display:none;}
 .bcard{position:fixed;top:74px;right:20px;width:255px;background:var(--surface);border:1px solid var(--bs);border-radius:18px;box-shadow:var(--shx);overflow:hidden;animation:popIn .22s cubic-bezier(.34,1.56,.64,1);z-index:901;}
-.bc-ban{height:78px;background:linear-gradient(135deg,#0071e3,#34aadc 60%,#30d158);display:flex;align-items:flex-end;padding:13px;position:relative;overflow:hidden;}
+.bc-ban{height:78px;background:linear-gradient(135deg,#1a0533 0%,#6b21a8 40%,#f97316 80%,#fbbf24 100%);display:flex;align-items:flex-end;padding:13px;position:relative;overflow:hidden;}
 .bc-ban::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.07'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='30' cy='10' r='2'/%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E");}
 .bc-av{width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:12px;border:2px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:21px;}
 .bc-body{padding:13px 15px 15px;}
@@ -411,7 +411,14 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .app-body{display:flex;flex:1;overflow:hidden;}
 
 /* ── SIDEBAR — YouTube style ── */
-.sidebar{width:220px;flex-shrink:0;background:var(--s2);backdrop-filter:blur(20px);border-right:1px solid var(--b);display:flex;flex-direction:column;overflow:hidden;transition:background .35s;}
+.sidebar{width:220px;flex-shrink:0;background:var(--s2);backdrop-filter:blur(20px);border-right:1px solid var(--b);display:flex;flex-direction:column;overflow:hidden;transition:width .25s cubic-bezier(.4,0,.2,1),background .35s;}
+.sidebar.collapsed{width:56px;}
+.sidebar.collapsed .sb-label,.sidebar.collapsed .sb-cnt,.sidebar.collapsed .sb-lbl,.sidebar.collapsed .sb-add-btn,.sidebar.collapsed .sb-footer{opacity:0;pointer-events:none;width:0;overflow:hidden;}
+.sidebar.collapsed .sb-item{justify-content:center;padding:8px 0;}
+.sidebar.collapsed .sb-ico{margin:0 auto;}
+.sb-toggle{width:100%;background:none;border:none;border-bottom:1px solid var(--b);padding:10px;display:flex;align-items:center;justify-content:flex-end;cursor:pointer;color:var(--t3);font-size:16px;transition:color .14s;flex-shrink:0;}
+.sb-toggle:hover{color:var(--t1);}
+.sidebar.collapsed .sb-toggle{justify-content:center;}
 .sb-scroll{flex:1;overflow-y:auto;padding-top:6px;scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.2) transparent;}
 .sb-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--t3);text-transform:uppercase;padding:14px 16px 5px;}
 .sb-item{display:flex;align-items:center;gap:10px;padding:8px 11px;margin:1px 7px;border-radius:10px;cursor:pointer;transition:background .14s,color .14s;position:relative;user-select:none;}
@@ -630,7 +637,70 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .sr-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background .12s;}
 .sr-item:hover{background:var(--s3);}
 .sr-thumb{width:46px;height:26px;border-radius:4px;overflow:hidden;background:var(--tp);flex-shrink:0;}
+.search-results-drop{position:absolute;top:calc(100% + 8px);left:0;width:100%;background:var(--surface);border:1px solid var(--bs);border-radius:14px;box-shadow:var(--shx);z-index:200;overflow:hidden;animation:slideDown .18s ease;}
+.sr-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background .12s;}
+.sr-item:hover{background:var(--s3);}
+.sr-thumb{width:46px;height:26px;border-radius:4px;overflow:hidden;background:var(--tp);flex-shrink:0;}
 .sr-thumb img{width:100%;height:100%;object-fit:cover;}
+
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:768px){
+  /* Island header */
+  .island{padding:0 14px;height:54px;gap:2px;}
+  .ilogo img{height:36px !important;}
+  .inav-item{display:none;}
+  .btn-builder,.btn-reset-demo{display:none;}
+  .btn-addvid{padding:6px 11px;font-size:12px;}
+  .isearch-btn{width:38px;height:38px;font-size:18px;}
+
+  /* Sidebar hidden on mobile — bottom nav instead */
+  .sidebar{display:none !important;}
+  .app-body{flex-direction:column;}
+
+  /* Bottom mobile nav */
+  #mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:rgba(10,10,10,.92);backdrop-filter:blur(20px);
+    border-top:1px solid rgba(255,255,255,.1);
+    z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+  }
+  [data-theme="light"] #mobile-nav{background:rgba(255,255,255,.92);border-top-color:rgba(0,0,0,.1);}
+  .mob-nav-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:4px 0;cursor:pointer;color:var(--t3);transition:color .14s;
+    font-size:9.5px;font-weight:600;letter-spacing:.02em;
+  }
+  .mob-nav-item.active{color:var(--acc);}
+  .mob-nav-item span:first-child{font-size:20px;}
+
+  /* Main content above bottom nav */
+  .main{padding-bottom:70px;}
+
+  /* Video grid single column */
+  .vgrid{grid-template-columns:1fr;gap:12px;}
+
+  /* Analytics mobile */
+  .an-row{flex-direction:column !important;}
+
+  /* Modal full-width */
+  .glass-modal{width:95vw !important;max-width:95vw !important;border-radius:16px !important;}
+
+  /* Builder card */
+  .bcard{right:10px;width:calc(100vw - 20px);top:64px;}
+
+  /* Profile card */
+  .prof-card{right:10px;width:calc(100vw - 20px);}
+
+  /* Chatbot */
+  #nik-panel{width:calc(100vw - 20px);right:10px;bottom:80px;}
+  #nik-launcher{right:16px;bottom:80px;}
+}
+
+@media(min-width:769px){
+  #mobile-nav{display:none;}
+}
 </style>
 </head>
 <body>
@@ -998,7 +1068,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
   </div>
 
   <!-- ── FOOTER BENTO ── -->
-  <footer class="lp-footer">
+  <!-- ── ONBOARDING MODAL ── -->
     <div class="footer-bento">
       <div class="footer-top">
         <div class="footer-brand">
@@ -1190,8 +1260,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       </a>
 
       <!-- YouTube-style nav tabs inline in island -->
-      <div class="inav-item" id="feed-tab" onclick="setView('feed')">▶ Feed</div>
-
       <div class="inav-item" id="pl-tab" onclick="setView('all')">🏠 Home</div>
 
       <!-- Playlists dropdown nav -->
@@ -1222,11 +1290,6 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
         <div class="search-results-drop" id="search-results" style="display:none;"></div>
       </div>
 
-
-      <!-- Dark toggle -->
-      <button class="dtog" onclick="toggleDark()" title="Toggle theme">
-        <div class="tknob" id="tknob">🌙</div>
-      </button>
 
       <!-- Reset Demo -->
       <button class="btn-reset-demo" onclick="resetDemoData()" title="Reset demo data">↺ Reset Demo</button>
@@ -1293,17 +1356,14 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
   <div class="app-body">
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="app-sidebar">
+      <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse menu" id="sb-toggle-btn">◀</button>
       <div class="sb-scroll">
         <div class="sb-lbl">Menu</div>
         <div class="sb-item active" id="nav-all" onclick="setView('all')">
           <div class="sb-ico">🏠</div>
           <span class="sb-label">Home</span>
           <span class="sb-cnt" id="all-cnt">0</span>
-        </div>
-        <div class="sb-item" id="nav-feed" onclick="setView('feed')">
-          <div class="sb-ico">▶</div>
-          <span class="sb-label">Feed</span>
         </div>
         <div class="sb-item" id="nav-analytics" onclick="setView('analytics')">
           <div class="sb-ico">📊</div>
@@ -1513,6 +1573,25 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .ext-d-btn.sel{border-color:var(--org);background:rgba(255,149,0,.12);color:var(--org);}
 </style>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav id="mobile-nav">
+  <div class="mob-nav-item active" id="mob-home" onclick="setView('all');setMobNav('mob-home')">
+    <span>🏠</span><span>Home</span>
+  </div>
+  <div class="mob-nav-item" id="mob-playlists" onclick="setView('pl_');setMobNav('mob-playlists')">
+    <span>📋</span><span>Playlists</span>
+  </div>
+  <div class="mob-nav-item" id="mob-add" onclick="openAdd()">
+    <span style="font-size:26px;line-height:1;color:var(--acc);">+</span><span style="color:var(--acc);">Add</span>
+  </div>
+  <div class="mob-nav-item" id="mob-analytics" onclick="setView('analytics');setMobNav('mob-analytics')">
+    <span>📊</span><span>Analytics</span>
+  </div>
+  <div class="mob-nav-item" id="mob-profile" onclick="toggleProfileCard()">
+    <span>👤</span><span>Profile</span>
+  </div>
+</nav>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -1619,6 +1698,20 @@ function toggleDark(){
   const knob=document.getElementById('tknob');if(knob)knob.textContent=isDark?'🌙':'☀️';
   const lpbtn=document.getElementById('lp-theme-btn');if(lpbtn)lpbtn.textContent=isDark?'🌙':'☀️';
   if(chartInstance)rebuildChart();
+}
+
+let sidebarCollapsed=false;
+function toggleSidebar(){
+  sidebarCollapsed=!sidebarCollapsed;
+  const sb=document.getElementById('app-sidebar');
+  const btn=document.getElementById('sb-toggle-btn');
+  sb.classList.toggle('collapsed',sidebarCollapsed);
+  if(btn)btn.textContent=sidebarCollapsed?'▶':'◀';
+}
+function setMobNav(id){
+  document.querySelectorAll('.mob-nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el)el.classList.add('active');
 }
 
 /* ══════════════════════════════════════════
@@ -1915,6 +2008,7 @@ function markWatched(id){
     showToast('Unmarked');
   }
   render();
+  if(typeof saveUserData==='function') saveUserData();
 }
 
 /* ══════════════════════════════════════════
@@ -2096,12 +2190,14 @@ function createPL(){
   closeNPL();
   setView(np.id);
   showToast(`Playlist "${emoji} ${name}" created`);
+  if(typeof saveUserData==='function') saveUserData();
 }
 function togPL(plId,vidId){
   playlists=playlists.map(pl=>{if(pl.id!==plId)return pl;const has=pl.videoIds.includes(vidId);return{...pl,videoIds:has?pl.videoIds.filter(i=>i!==vidId):[...pl.videoIds,vidId]};});
   render();
   const pl=playlists.find(p=>p.id===plId);
   showToast(pl?.videoIds.includes(vidId)?`Added to ${pl.name}`:`Removed from ${pl?.name}`);
+  if(typeof saveUserData==='function') saveUserData();
 }
 
 /* ══════════════════════════════════════════
@@ -2258,6 +2354,7 @@ function addVideo(){
   const d=det(url);if(!d){showAddErr('Could not detect platform. Paste a YouTube, Instagram or X video URL.');return;}
   videos.unshift({id:uid(),url,platform:d.platform,platformId:d.id,title:title||PLATS[d.platform].name+' Video',deadline:deadline||null,watched:false,watchedAt:null});
   closeAdd();render();showToast('Video added ✓');
+  if(typeof saveUserData==='function') saveUserData();
 }
 
 /* ══════════════════════════════════════════
@@ -2278,6 +2375,7 @@ function confirmDelVid(id,title){
     videos=videos.filter(v=>v.id!==id);
     playlists=playlists.map(pl=>({...pl,videoIds:pl.videoIds.filter(v=>v!==id)}));
     render();showToast('Video deleted');
+    if(typeof saveUserData==='function') saveUserData();
   });
 }
 function confirmDelPL(id,name){
@@ -2285,6 +2383,7 @@ function confirmDelPL(id,name){
     playlists=playlists.filter(p=>p.id!==id);
     if(currentView===id)setView('all');else render();
     showToast('Playlist deleted');
+    if(typeof saveUserData==='function') saveUserData();
   });
 }
 
@@ -2631,35 +2730,22 @@ function doggoNext() {
    RESET DEMO DATA
 ══════════════════════════════════════════ */
 function resetDemoData(){
-  if(!confirm('Reset to demo data? This will replace your current library with 5 sample videos.')) return;
-  const _now=Date.now(), _d=864e5;
-  videos = [
-    {id:'demo1',url:'https://www.youtube.com/watch?v=dQw4w9WgXcQ',platform:'youtube',platformId:'dQw4w9WgXcQ',title:'Rick Astley — Never Gonna Give You Up',deadline:new Date(_now+14*_d).toISOString().split('T')[0],watched:false,watchedAt:null,note:'Watch this classic first',playlist:''},
-    {id:'demo2',url:'https://www.youtube.com/watch?v=9bZkp7q19f0',platform:'youtube',platformId:'9bZkp7q19f0',title:'PSY — Gangnam Style',deadline:new Date(_now+2*_d).toISOString().split('T')[0],watched:false,watchedAt:null,note:'Due soon!',playlist:''},
-    {id:'demo3',url:'https://www.youtube.com/watch?v=JGwWNGJdvx8',platform:'youtube',platformId:'JGwWNGJdvx8',title:'Ed Sheeran — Shape of You',deadline:new Date(_now-1*_d).toISOString().split('T')[0],watched:false,watchedAt:null,note:'Overdue!',playlist:''},
-    {id:'demo4',url:'https://www.youtube.com/watch?v=CevxZvSJLk8',platform:'youtube',platformId:'CevxZvSJLk8',title:'Katy Perry — Roar',deadline:new Date(_now+7*_d).toISOString().split('T')[0],watched:true,watchedAt:new Date(_now-2*_d).toISOString(),note:'',playlist:''},
-    {id:'demo5',url:'https://www.youtube.com/watch?v=OPf0YbXqDm0',platform:'youtube',platformId:'OPf0YbXqDm0',title:'Mark Ronson ft. Bruno Mars — Uptown Funk',deadline:new Date(_now+5*_d).toISOString().split('T')[0],watched:true,watchedAt:new Date(_now-1*_d).toISOString(),note:'',playlist:''},
-    {id:'demo6',url:'https://www.youtube.com/watch?v=kJQP7kiw5Fk',platform:'youtube',platformId:'kJQP7kiw5Fk',title:'Luis Fonsi — Despacito',deadline:new Date(_now+10*_d).toISOString().split('T')[0],watched:false,watchedAt:null,note:'',playlist:''},
-    {id:'demo7',url:'https://www.youtube.com/watch?v=hT_nvWreIhg',platform:'youtube',platformId:'hT_nvWreIhg',title:'OneRepublic — Counting Stars',deadline:new Date(_now-3*_d).toISOString().split('T')[0],watched:true,watchedAt:new Date(_now-4*_d).toISOString(),note:'',playlist:''}
-  ];
-  watchHistory = [
-    {vidId:'demo4',watchedAt:new Date(_now-2*_d).toISOString(),onTime:true,deadline:new Date(_now+7*_d).toISOString().split('T')[0]},
-    {vidId:'demo5',watchedAt:new Date(_now-1*_d).toISOString(),onTime:true,deadline:new Date(_now+5*_d).toISOString().split('T')[0]},
-    {vidId:'demo7',watchedAt:new Date(_now-4*_d).toISOString(),onTime:false,deadline:new Date(_now-3*_d).toISOString().split('T')[0]}
-  ];
-  // Save to Firestore if logged in
-  if(typeof window._fbUser !== 'undefined' && window._fbUser) {
-    // Fire-and-forget save
+  if(!confirm('Clear all data? This will reset your entire library and analytics to zero.')) return;
+  videos = [];
+  watchHistory = [];
+  playlists = [];
+  // Save cleared state to Firestore if logged in
+  if(window._fbUser) {
     try {
-      const {getFirestore,doc,setDoc} = window._fbModules || {};
-      if(setDoc) {
-        const db = getFirestore();
-        setDoc(doc(db,'users',window._fbUser.uid),{videos:JSON.stringify(videos)},{merge:true}).catch(()=>{});
+      const {getFirestore:_gfs,doc:_doc,setDoc:_set} = window._fbModules || {};
+      if(_set) {
+        const _db=_gfs();
+        _set(_doc(_db,'users',window._fbUser.uid),{videos:'[]',watchHistory:'[]',playlists:'[]'},{merge:true}).catch(()=>{});
       }
     } catch(e){}
   }
   render();
-  showToast('Demo data restored — 5 sample videos loaded! 🎬');
+  showToast('Library cleared — fresh start! 🧹');
 }
 
 function loadDemoAndClose(){
@@ -2798,7 +2884,6 @@ function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove(
     document.getElementById('pg-app').classList.remove('active');
     document.getElementById('pg-landing').classList.add('active');
   };
-
   onAuthStateChanged(auth, (user) => {
     document.getElementById('auth-overlay').classList.remove('show');
     if(user) {
@@ -2818,13 +2903,63 @@ function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove(
       const tagline = document.querySelector('.lp-tagline strong');
       if(tagline) tagline.textContent = user.displayName ? user.displayName.split(' ')[0] : 'there';
       // Sync LP theme toggle
+  onAuthStateChanged(auth, async (user) => {
+    document.getElementById('auth-overlay').classList.remove('show');
+    if(user) {
+      window._fbUser = user;
+      window._fbModules = { getFirestore: ()=>db, doc, setDoc, getDoc };
+
+      // Update avatar in app header
+      const img = document.getElementById('user-avatar-img');
+      const fallback = document.getElementById('user-avatar-fallback');
+      if(user.photoURL) {
+        img.src = user.photoURL; img.style.display = 'block'; fallback.style.display = 'none';
+      } else {
+        fallback.textContent = (user.displayName || user.email || '?')[0].toUpperCase();
+        fallback.style.display = 'flex'; img.style.display = 'none';
+      }
+      // Update hero tagline
+      const tagline = document.querySelector('.lp-tagline strong');
+      if(tagline) tagline.textContent = user.displayName ? user.displayName.split(' ')[0] : 'there';
       const lpBtn=document.getElementById('lp-theme-btn');
       if(lpBtn){const isDk=document.documentElement.getAttribute('data-theme')==='dark';lpBtn.textContent=isDk?'🌙':'☀️';}
+
+      // ── LOAD DATA FROM FIRESTORE ──
+      try {
+        const snap = await getDoc(doc(db, 'users', user.uid));
+        if(snap.exists()) {
+          const d = snap.data();
+          if(d.videos)       { try { const v=JSON.parse(d.videos);       if(Array.isArray(v)) videos=v; } catch(e){} }
+          if(d.watchHistory) { try { const w=JSON.parse(d.watchHistory);  if(Array.isArray(w)) watchHistory=w; } catch(e){} }
+          if(d.playlists)    { try { const p=JSON.parse(d.playlists);    if(Array.isArray(p)) playlists=p; } catch(e){} }
+        }
+      } catch(e){ console.warn('Firestore load error:', e); }
+
+      // ── EXPOSE SAVE HELPER ──
+      window.saveUserData = () => {
+        if(!window._fbUser) return;
+        setDoc(doc(db,'users',window._fbUser.uid),{
+          videos: JSON.stringify(videos||[]),
+          watchHistory: JSON.stringify(watchHistory||[]),
+          playlists: JSON.stringify(playlists||[])
+        },{merge:true}).catch(e=>console.warn('Save error:',e));
+      };
+
       // Enter app
       window.openApp();
-      // Show doggo guide after a moment
       setTimeout(()=>{ if(typeof showDoggo==='function') showDoggo(); }, 800);
+    } else {
+      window._fbUser = null;
+      window.saveUserData = ()=>{};
     }
+  });
+
+  // ── TAB TITLE — changes when tab is hidden ──
+  const _origTitle = 'aellium';
+  const _awayMsgs = ['come back soon! 👀', 'your deadlines miss you 📅', "don't ghost us 🥺", 'still here? ✨'];
+  let _awayIdx = 0;
+  document.addEventListener('visibilitychange', () => {
+    document.title = document.hidden ? _awayMsgs[_awayIdx++ % _awayMsgs.length] : _origTitle;
   });
 </script>
 
