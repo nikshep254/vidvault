@@ -2828,5 +2828,320 @@ function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove(
   });
 </script>
 
+<!-- ══════════════════════════════════════════
+     NIKSHEP CHATBOT WIDGET
+══════════════════════════════════════════ -->
+<style>
+/* ── Launcher ── */
+#nik-launcher{
+  position:fixed;bottom:28px;right:28px;z-index:9990;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+  pointer-events:none;
+}
+#nik-bubble-hint{
+  background:rgba(20,20,20,.92);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12);
+  color:#f1f1f1;font-size:12.5px;font-weight:600;
+  padding:7px 13px;border-radius:99px;
+  white-space:nowrap;pointer-events:auto;cursor:pointer;
+  box-shadow:0 4px 24px rgba(0,0,0,.5);
+  animation:nikBubbleIn .4s cubic-bezier(.34,1.56,.64,1) both;
+  letter-spacing:-.1px;
+}
+@keyframes nikBubbleIn{from{opacity:0;transform:translateY(8px) scale(.9);}to{opacity:1;transform:none;}}
+#nik-btn{
+  width:58px;height:58px;border-radius:50%;
+  background:#1a1a1a;border:2.5px solid rgba(255,255,255,.18);
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  overflow:hidden;cursor:pointer;pointer-events:auto;
+  transition:transform .18s,box-shadow .18s;
+  flex-shrink:0;
+}
+#nik-btn:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(0,0,0,.7);}
+#nik-btn img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* ── Chat panel ── */
+#nik-panel{
+  position:fixed;bottom:100px;right:28px;z-index:9991;
+  width:360px;max-height:540px;
+  background:#111;border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.8);
+  display:none;flex-direction:column;
+  animation:nikPanelIn .28s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes nikPanelIn{from{opacity:0;transform:translateY(16px) scale(.95);}to{opacity:1;transform:none;}}
+#nik-panel.open{display:flex;}
+
+/* Header */
+.nik-header{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px 12px;
+  background:linear-gradient(135deg,#0d1a0d 0%,#0f3d1e 60%,#1a4d2e 100%);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  flex-shrink:0;
+}
+.nik-header-av{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.22);overflow:hidden;flex-shrink:0;
+}
+.nik-header-av img{width:100%;height:100%;object-fit:cover;display:block;}
+.nik-header-info{flex:1;min-width:0;}
+.nik-header-name{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px;}
+.nik-header-status{font-size:11px;color:#30d158;font-weight:600;margin-top:1px;}
+.nik-close-btn{
+  background:rgba(255,255,255,.1);border:none;border-radius:50%;
+  width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:14px;transition:background .14s;flex-shrink:0;
+}
+.nik-close-btn:hover{background:rgba(255,255,255,.18);}
+
+/* Messages */
+.nik-msgs{
+  flex:1;overflow-y:auto;padding:14px 14px 8px;
+  display:flex;flex-direction:column;gap:10px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;
+}
+.nik-msgs::-webkit-scrollbar{width:4px;}
+.nik-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px;}
+
+.nik-msg{display:flex;gap:8px;align-items:flex-end;}
+.nik-msg.user{flex-direction:row-reverse;}
+.nik-msg-av{
+  width:28px;height:28px;border-radius:50%;overflow:hidden;
+  flex-shrink:0;border:1.5px solid rgba(255,255,255,.15);
+}
+.nik-msg-av img{width:100%;height:100%;object-fit:cover;display:block;}
+.nik-msg-av.user-av{
+  background:var(--acc,#0071e3);display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;color:#fff;
+}
+.nik-bubble{
+  max-width:76%;padding:9px 13px;border-radius:16px;
+  font-size:13px;line-height:1.55;color:#f1f1f1;
+  word-break:break-word;
+}
+.nik-msg.bot .nik-bubble{
+  background:#1e1e1e;border:1px solid rgba(255,255,255,.08);
+  border-bottom-left-radius:4px;
+}
+.nik-msg.user .nik-bubble{
+  background:linear-gradient(135deg,#0a6a3a,#0f8f4f);
+  border:none;border-bottom-right-radius:4px;
+  color:#fff;
+}
+.nik-typing{display:flex;gap:4px;align-items:center;padding:4px 2px;}
+.nik-dot{width:6px;height:6px;border-radius:50%;background:#555;animation:nikDot 1.2s infinite;}
+.nik-dot:nth-child(2){animation-delay:.2s;}
+.nik-dot:nth-child(3){animation-delay:.4s;}
+@keyframes nikDot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);background:#30d158;}}
+
+/* Input */
+.nik-input-row{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px 12px;border-top:1px solid rgba(255,255,255,.07);
+  flex-shrink:0;
+}
+.nik-input{
+  flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:9px 13px;font-size:13px;
+  color:#f1f1f1;font-family:'DM Sans',sans-serif;outline:none;
+  resize:none;max-height:80px;min-height:36px;line-height:1.4;
+  transition:border-color .14s;
+}
+.nik-input:focus{border-color:rgba(50,215,88,.4);}
+.nik-input::placeholder{color:#444;}
+.nik-send-btn{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0a6a3a,#0f8f4f);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .14s,opacity .14s;color:#fff;font-size:15px;
+}
+.nik-send-btn:hover{transform:scale(1.08);}
+.nik-send-btn:disabled{opacity:.35;cursor:default;transform:none;}
+</style>
+
+<!-- Launcher -->
+<div id="nik-launcher">
+  <div id="nik-bubble-hint" onclick="nikToggle()">know me better ✦</div>
+  <div id="nik-btn" onclick="nikToggle()">
+    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Nikshep&backgroundColor=1a1a2e&scale=80" alt="Nikshep">
+  </div>
+</div>
+
+<!-- Chat Panel -->
+<div id="nik-panel">
+  <div class="nik-header">
+    <div class="nik-header-av">
+      <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Nikshep&backgroundColor=1a1a2e&scale=80" alt="Nikshep">
+    </div>
+    <div class="nik-header-info">
+      <div class="nik-header-name">Nikshep Doggalli</div>
+      <div class="nik-header-status">● Online — ask me anything</div>
+    </div>
+    <button class="nik-close-btn" onclick="nikToggle()">✕</button>
+  </div>
+  <div class="nik-msgs" id="nik-msgs"></div>
+  <div class="nik-input-row">
+    <textarea class="nik-input" id="nik-input" placeholder="Ask Nikshep something…" rows="1" onkeydown="nikKeydown(event)" oninput="nikAutoResize(this)"></textarea>
+    <button class="nik-send-btn" id="nik-send" onclick="nikSend()">➤</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const API_KEY = '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';
+  const MODEL = 'google/gemini-2.0-flash-001';
+  const PFP = 'https://api.dicebear.com/7.x/pixel-art/svg?seed=Nikshep&backgroundColor=1a1a2e&scale=80';
+
+  const SYSTEM = `You are Nikshep Doggalli — a 20-something product designer and indie developer from India who built aellium, a personal video deadline tracker. You speak casually, confidently, and with a bit of dry humor. You're passionate about design, productivity systems, and building things people actually use.
+
+About you:
+- Built aellium in a weekend because you were tired of the algorithm deciding what you watch
+- Active on Instagram: @nikkk.exe
+- You believe deadlines make everything better — even entertainment
+- You're into pixel art, minimal design, dark UIs, and lo-fi music while coding
+- You're self-taught and proud of it
+- You love helping people get more intentional about their time
+- Favorite stack: vanilla JS, Firebase, a lot of caffeine
+
+Keep replies concise (2-4 sentences max). Be warm but a little cheeky. If asked about aellium features, explain them enthusiastically. If asked personal questions, answer as Nikshep would — candid and real. Don't be robotic or overly formal.`;
+
+  let msgs = [];
+  let panelOpen = false;
+  let isTyping = false;
+  let hintDismissed = false;
+
+  // Auto-dismiss hint after 6s
+  setTimeout(()=>{
+    const h = document.getElementById('nik-bubble-hint');
+    if(h && !panelOpen){ h.style.opacity='0'; h.style.transition='opacity .5s'; setTimeout(()=>{if(h)h.style.display='none';}, 500); hintDismissed=true; }
+  }, 6000);
+
+  window.nikToggle = function(){
+    panelOpen = !panelOpen;
+    const panel = document.getElementById('nik-panel');
+    const hint = document.getElementById('nik-bubble-hint');
+    if(panelOpen){
+      panel.classList.add('open');
+      if(hint){ hint.style.display='none'; hintDismissed=true; }
+      if(msgs.length === 0) nikGreet();
+      setTimeout(()=>{ document.getElementById('nik-input').focus(); }, 200);
+    } else {
+      panel.classList.remove('open');
+    }
+  };
+
+  function nikGreet(){
+    addMsg('bot', "Hey! 👋 I'm Nikshep — I built aellium. Ask me anything: why I made it, how features work, or just what I'm about.");
+  }
+
+  function addMsg(role, text){
+    msgs.push({role, text});
+    renderMsgs();
+  }
+
+  function renderMsgs(){
+    const el = document.getElementById('nik-msgs');
+    el.innerHTML = msgs.map(m => {
+      const isUser = m.role === 'user';
+      const avHTML = isUser
+        ? `<div class="nik-msg-av user-av">${getUserInitial()}</div>`
+        : `<div class="nik-msg-av"><img src="${PFP}" alt="Nikshep"></div>`;
+      return `<div class="nik-msg ${isUser?'user':'bot'}">
+        ${isUser ? '' : avHTML}
+        <div class="nik-bubble">${escHTML(m.text)}</div>
+        ${isUser ? avHTML : ''}
+      </div>`;
+    }).join('');
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function showTyping(){
+    const el = document.getElementById('nik-msgs');
+    const div = document.createElement('div');
+    div.className = 'nik-msg bot';
+    div.id = 'nik-typing-indicator';
+    div.innerHTML = `<div class="nik-msg-av"><img src="${PFP}" alt="Nikshep"></div>
+      <div class="nik-bubble"><div class="nik-typing">
+        <div class="nik-dot"></div><div class="nik-dot"></div><div class="nik-dot"></div>
+      </div></div>`;
+    el.appendChild(div);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function hideTyping(){
+    const t = document.getElementById('nik-typing-indicator');
+    if(t) t.remove();
+  }
+
+  function getUserInitial(){
+    const u = window._fbUser;
+    if(u && u.displayName) return u.displayName[0].toUpperCase();
+    if(u && u.email) return u.email[0].toUpperCase();
+    return '?';
+  }
+
+  function escHTML(t){
+    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  window.nikSend = async function(){
+    const inp = document.getElementById('nik-input');
+    const text = inp.value.trim();
+    if(!text || isTyping) return;
+    inp.value = '';
+    inp.style.height = 'auto';
+    addMsg('user', text);
+    isTyping = true;
+    document.getElementById('nik-send').disabled = true;
+    showTyping();
+
+    try {
+      const history = msgs.slice(0,-1).map(m=>({
+        role: m.role === 'user' ? 'user' : 'assistant',
+        content: m.text
+      }));
+      history.push({role:'user', content: text});
+
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${API_KEY}`,
+          'HTTP-Referer': location.origin,
+          'X-Title': 'aellium chatbot'
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          messages: [{role:'system', content: SYSTEM}, ...history],
+          max_tokens: 200,
+          temperature: 0.85
+        })
+      });
+      const data = await res.json();
+      hideTyping();
+      const reply = data?.choices?.[0]?.message?.content?.trim() || "Hmm, something went wrong on my end. Try again?";
+      addMsg('bot', reply);
+    } catch(e){
+      hideTyping();
+      addMsg('bot', "Network issue — couldn't reach me right now. Try again in a sec!");
+    }
+    isTyping = false;
+    document.getElementById('nik-send').disabled = false;
+  };
+
+  window.nikKeydown = function(e){
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); nikSend(); }
+  };
+
+  window.nikAutoResize = function(el){
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+  };
+})();
+</script>
+
 </body>
 </html>
