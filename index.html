@@ -3111,14 +3111,17 @@ Keep replies concise (2-4 sentences max). Be warm but a little cheeky. If asked 
           messages: [{role:'system', content: SYSTEM}, ...history]
         })
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       hideTyping();
-      const reply = data?.choices?.[0]?.message?.content?.trim() || "Hmm, something went wrong on my end. Try again?";
-      addMsg('bot', reply);
+      if (!res.ok) {
+        addMsg('bot', `Error ${res.status}: ${data?.error || data?.detail || 'Unknown error'}`);
+      } else {
+        const reply = data?.choices?.[0]?.message?.content?.trim() || "Got a blank response — try again?";
+        addMsg('bot', reply);
+      }
     } catch(e){
       hideTyping();
-      addMsg('bot', "Network issue — couldn't reach me right now. Try again in a sec!");
+      addMsg('bot', `Failed: ${e.message}`);
     }
     isTyping = false;
     document.getElementById('nik-send').disabled = false;
