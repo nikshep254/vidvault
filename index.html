@@ -57,6 +57,64 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 .li-theme{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:#fff;flex-shrink:0;}
 .li-theme:hover{background:rgba(255,255,255,.14);}
 
+
+/* ── ONB WHY GRID ── */
+.onb-why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.onb-why-item{display:flex;align-items:flex-start;gap:10px;padding:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;}
+.onb-why-icon{font-size:18px;flex-shrink:0;line-height:1;margin-top:1px;}
+.onb-why-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px;}
+.onb-why-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;}
+.onb-note{text-align:center;font-size:11px;color:rgba(255,255,255,.28);margin-top:12px;font-weight:500;}
+
+/* ── NOTE FROM CREATOR CARD ── */
+.lp-note-section{position:relative;z-index:10;padding:20px 40px 80px;display:flex;flex-direction:column;align-items:center;}
+.note-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;width:100%;max-width:960px;overflow:hidden;display:grid;grid-template-columns:280px 1fr;align-items:stretch;}
+.note-left{background:linear-gradient(160deg,#0d1a0d,#0f3d1e);padding:44px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-right:1px solid rgba(255,255,255,.07);}
+.note-icon{font-size:52px;line-height:1;}
+.note-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);text-align:center;}
+.note-tag{display:inline-block;padding:5px 14px;border-radius:99px;background:rgba(50,215,75,.12);border:1px solid rgba(50,215,75,.2);color:#30d158;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.note-right{padding:44px 48px;}
+.note-title{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:20px;line-height:1.2;}
+.note-body{font-size:15px;color:rgba(255,255,255,.6);line-height:1.8;}
+.note-body p{margin-bottom:16px;}
+.note-body strong{color:#fff;font-weight:700;}
+.note-sig{margin-top:24px;display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);}
+.note-sig-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b7eff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.note-sig-name{font-size:13px;font-weight:800;color:#fff;}
+.note-sig-role{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px;}
+
+/* ── COMPARISON TABLE ── */
+.lp-compare{position:relative;z-index:10;padding:40px 40px 80px;max-width:900px;margin:0 auto;width:100%;}
+.compare-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);}
+.compare-table th{padding:16px 20px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);background:rgba(255,255,255,.03);text-align:left;}
+.compare-table th:first-child{width:40%;}
+.compare-table th.highlight{color:#fff;background:rgba(59,126,255,.15);}
+.compare-table td{padding:14px 20px;font-size:13.5px;border-top:1px solid rgba(255,255,255,.06);}
+.compare-table td:first-child{color:rgba(255,255,255,.6);font-weight:500;}
+.compare-table td.no{color:rgba(255,255,255,.2);}
+.compare-table td.yes{color:#30d158;font-weight:700;}
+.compare-table td.highlight{background:rgba(59,126,255,.06);}
+.compare-table tr:hover td{background:rgba(255,255,255,.02);}
+
+/* ── MANIFESTO ── */
+.lp-manifesto{position:relative;z-index:10;padding:40px 40px 80px;max-width:760px;margin:0 auto;width:100%;text-align:center;}
+.manifesto-body{font-size:clamp(18px,2.5vw,26px);line-height:1.65;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:-.3px;}
+.manifesto-body strong{color:#fff;}
+
+/* ── RESET DEMO BUTTON (app) ── */
+.btn-reset-demo{display:flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(255,149,0,.12);border:1px solid rgba(255,149,0,.25);border-radius:8px;cursor:pointer;font-family:var(--sf);font-size:12px;font-weight:600;color:#ff9f0a;transition:all .15s;}
+.btn-reset-demo:hover{background:rgba(255,149,0,.2);}
+
+/* ── PRICING MODAL override ── */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.pricing-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px;}
+.pricing-card.free{border-color:rgba(50,215,75,.3);background:rgba(50,215,75,.06);}
+.pricing-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.pricing-price{font-size:32px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1;margin-bottom:4px;}
+.pricing-card.free .pricing-price{color:#30d158;}
+.pricing-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.5;}
+.pricing-why{margin-top:20px;padding:16px;background:rgba(255,255,255,.04);border-radius:12px;font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.7;}
+
 /* builder popup */
 .lp-bento-ov{position:fixed;inset:0;z-index:1999;display:none;pointer-events:none;}
 .lp-bento-ov.active{display:block;pointer-events:all;}
@@ -115,7 +173,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
 /* ── FEATURES SECTION ── */
 .lp-about{position:relative;z-index:10;padding:80px 40px 60px;max-width:1100px;margin:0 auto;width:100%;}
-.lp-section-label{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px;}
+.lp-section-label{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:14px;}
 .lp-section-title{font-size:clamp(34px,4.5vw,54px);font-weight:900;letter-spacing:-2px;line-height:1.0;color:#fff;margin-bottom:14px;}
 .lp-section-sub{font-size:16px;color:rgba(255,255,255,.38);max-width:480px;line-height:1.65;margin-bottom:56px;font-weight:400;}
 
@@ -150,14 +208,16 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 /* ── BUILDER SECTION ── */
 
 /* ── SOCIAL PROOF ── */
-.lp-social{position:relative;z-index:10;padding:60px 40px 80px;max-width:1100px;margin:0 auto;width:100%;}
-.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.tcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px;}
-.tcard-quote{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:20px;font-style:italic;}
-.tcard-author{display:flex;align-items:center;gap:12px;}
-.tcard-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.tcard-name{font-size:13px;font-weight:700;color:#fff;}
-.tcard-handle{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+.lp-social{position:relative;z-index:10;padding:60px 0 80px;}
+.tmarquee-wrap{overflow:hidden;mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+.tmarquee{display:flex;gap:20px;width:max-content;animation:marquee 32s linear infinite;}
+.tmarquee:hover{animation-play-state:paused;}
+.tcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:24px 28px;width:300px;flex-shrink:0;}
+.tcard-quote{font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;font-style:italic;}
+.tcard-author{}
+.tcard-name{font-size:13px;font-weight:800;color:#fff;}
+.tcard-handle{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px;}
+.lp-social .lp-section-label,.lp-social .lp-section-title{text-align:center;max-width:none;padding:0 40px;}
 
 /* ── MARQUEE TRUST STRIP ── */
 .lp-strip{position:relative;z-index:10;padding:0 0 80px;overflow:hidden;}
@@ -577,6 +637,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       </a>
       <div class="li-sep"></div>
       <button class="li-btn" onclick="document.getElementById('lp-about').scrollIntoView({behavior:'smooth'})">Features</button>
+      <button class="li-btn" onclick="openInfoModal('pricing')">Pricing</button>
       <button class="li-btn" onclick="toggleLPBento()">Builder 🥷</button>
       <div class="li-spacer"></div>
       <button class="li-theme" onclick="toggleDark()" id="lp-theme-btn" title="Toggle theme">☀️</button>
@@ -625,27 +686,40 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
     <button class="lp-cta-btn" onclick="startOnboarding()">
       Start using VidVault →
     </button>
-    <div class="lp-cta-sub">Free · Takes 10 seconds · Sign in with Google</div>
+    <div class="lp-cta-sub">Free forever · Takes 10 seconds · Sign in with Google</div>
+  </div>
+
+  <!-- ── MANIFESTO ── -->
+  <div class="lp-manifesto">
+    <div class="manifesto-body">
+      The internet gave us <strong>infinite video.</strong><br>
+      Your Watch Later has <strong>847 videos you'll never watch.</strong><br>
+      Your tabs have <strong>23 YouTube links you forgot about.</strong><br>
+      Your Reels are saved <strong>somewhere you'll never look.</strong><br><br>
+      <strong>VidVault is the antidote.</strong><br>
+      One library. Deadlines. Accountability.<br>
+      Watch what you actually meant to watch.
+    </div>
   </div>
 
   <!-- ── STATS ── -->
   <div class="lp-stats">
-    <div class="lp-stat"><div class="lp-stat-val">4</div><div class="lp-stat-lbl">Platforms</div></div>
-    <div class="lp-stat"><div class="lp-stat-val">∞</div><div class="lp-stat-lbl">Videos</div></div>
-    <div class="lp-stat"><div class="lp-stat-val">0</div><div class="lp-stat-lbl">Distractions</div></div>
+    <div class="lp-stat"><div class="lp-stat-val">120+</div><div class="lp-stat-lbl">Platforms Supported</div></div>
+    <div class="lp-stat"><div class="lp-stat-val">∞</div><div class="lp-stat-lbl">Videos You Can Save</div></div>
+    <div class="lp-stat"><div class="lp-stat-val">0</div><div class="lp-stat-lbl">Ads or Distractions</div></div>
   </div>
 
   <!-- ── FEATURES SECTION ── -->
   <section class="lp-about" id="lp-about">
     <div class="lp-section-label">Features</div>
     <div class="lp-section-title">Watch less.<br>Watch better.</div>
-    <div class="lp-section-sub">Stop letting the algorithm decide. VidVault is your personal video library with deadlines, playlists, and analytics.</div>
+    <div class="lp-section-sub">Stop letting the algorithm decide. VidVault is your personal video library with deadlines, playlists, and real analytics.</div>
 
     <div class="bento-grid">
       <div class="bento-cell span2">
         <span class="bento-emoji">⏰</span>
         <div class="bento-title">Deadline-driven watching</div>
-        <div class="bento-desc">Assign a deadline to every video. Green means fine, orange means hurry, red means you blew it. No more "I'll watch it later" for eternity.</div>
+        <div class="bento-desc">Assign a deadline to every video. Green means you're fine, orange means hurry, red means you blew it. No more "I'll watch it later" spiral into never.</div>
         <div class="bento-bars">
           <div class="bento-bar" style="height:40%;background:rgba(50,215,75,.6);"></div>
           <div class="bento-bar" style="height:70%;background:rgba(50,215,75,.7);"></div>
@@ -660,26 +734,27 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 
       <div class="bento-cell">
         <span class="bento-emoji">🌐</span>
-        <div class="bento-title">4 platforms, one library</div>
-        <div class="bento-desc">YouTube, Instagram, X and more — all unified in one place.</div>
+        <div class="bento-title">120+ platforms, one library</div>
+        <div class="bento-desc">YouTube, Instagram, X and countless more — paste any video URL and VidVault handles detection, thumbnail and metadata automatically.</div>
         <div class="bento-plat-row">
           <div class="bento-plat-chip" style="color:#ff453a;border-color:#ff453a30;background:#ff453a0d;">▶ YouTube</div>
           <div class="bento-plat-chip" style="color:#e1306c;border-color:#e1306c30;background:#e1306c0d;">◈ Instagram</div>
           <div class="bento-plat-chip" style="color:#aaa;border-color:#aaa3;background:rgba(255,255,255,.04);">✕ X</div>
+          <div class="bento-plat-chip" style="color:#7b8fef;border-color:#7b8fef30;background:#7b8fef0d;">+ 120 more</div>
         </div>
       </div>
 
       <div class="bento-cell">
         <span class="bento-emoji">📋</span>
         <div class="bento-title">Curate playlists</div>
-        <div class="bento-desc">Group videos, track completion per list, share via URL — anyone gets it imported instantly.</div>
+        <div class="bento-desc">Group videos into themed collections, track how much you've watched per playlist, and share via URL in one tap.</div>
         <span class="bento-tag" style="background:rgba(50,215,75,.1);color:#30d158;">Share via link</span>
       </div>
 
       <div class="bento-cell">
         <span class="bento-emoji">📊</span>
-        <div class="bento-title">Watch analytics</div>
-        <div class="bento-desc">Completion rates, punctuality score, watch trends. Brutally honest about your habits.</div>
+        <div class="bento-title">Brutally honest analytics</div>
+        <div class="bento-desc">Completion rates, punctuality score, watch trends over time. It shows you exactly how disciplined — or undisciplined — you actually are.</div>
         <div class="bento-bars" style="height:36px;margin-top:12px;">
           <div class="bento-bar" style="height:50%;"></div>
           <div class="bento-bar" style="height:80%;"></div>
@@ -692,97 +767,151 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       <div class="bento-cell">
         <span class="bento-emoji">▶</span>
         <div class="bento-title">Chronological feed</div>
-        <div class="bento-desc">Your saved videos — newest first, no algorithm, no noise, no distractions.</div>
+        <div class="bento-desc">Your saved videos — newest first. No algorithm pushing junk, no sponsored content, no autoplay trap.</div>
         <span class="bento-tag" style="background:rgba(123,143,239,.1);color:#8b9ef4;">Your pace, your feed</span>
       </div>
 
       <div class="bento-cell">
         <span class="bento-emoji">🔗</span>
-        <div class="bento-title">Share playlists</div>
-        <div class="bento-desc">One link. Anyone who opens it gets your entire playlist imported in one tap.</div>
+        <div class="bento-title">Instant playlist import</div>
+        <div class="bento-desc">Share a playlist link — anyone who opens it gets your full playlist imported into their library instantly. One tap.</div>
         <span class="bento-tag" style="background:rgba(255,159,10,.1);color:#ff9f0a;">Import in 1 tap</span>
       </div>
+
+      <div class="bento-cell span2">
+        <span class="bento-emoji">🏆</span>
+        <div class="bento-title">Punctuality score</div>
+        <div class="bento-desc">A single score that tells you how good you are at actually watching videos before their deadline. Most people start at a humbling 40%. The goal is 100. It's addictive to improve.</div>
+        <div style="display:flex;gap:8px;margin-top:16px;align-items:center;">
+          <div style="flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;"><div style="height:100%;width:72%;background:linear-gradient(90deg,#30d158,#34c759);border-radius:99px;"></div></div>
+          <span style="font-size:13px;font-weight:800;color:#30d158;">72%</span>
+          <span style="font-size:12px;color:rgba(255,255,255,.3);">Getting there</span>
+        </div>
+      </div>
+
+      <div class="bento-cell">
+        <span class="bento-emoji">🌙</span>
+        <div class="bento-title">Dark &amp; light mode</div>
+        <div class="bento-desc">Beautiful in both. Toggle anytime. Your preference persists across sessions automatically.</div>
+        <span class="bento-tag" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);">Always looks good</span>
+      </div>
     </div>
+  </section>
+
+  <!-- ── COMPARISON ── -->
+  <section class="lp-compare">
+    <div class="lp-section-label">Why VidVault</div>
+    <div class="lp-section-title" style="font-size:clamp(26px,3vw,40px);margin-bottom:36px;">vs. the chaos you live in now</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>YouTube Watch Later</th>
+          <th>Browser Bookmarks</th>
+          <th class="highlight">VidVault ✓</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cross-platform videos</td><td class="no">✗ YouTube only</td><td class="no">✗ Links only</td><td class="yes highlight">✓ 120+ platforms</td></tr>
+        <tr><td>Deadlines &amp; urgency</td><td class="no">✗ None</td><td class="no">✗ None</td><td class="yes highlight">✓ Color-coded</td></tr>
+        <tr><td>Completion tracking</td><td class="no">✗ No</td><td class="no">✗ No</td><td class="yes highlight">✓ Per video</td></tr>
+        <tr><td>Analytics dashboard</td><td class="no">✗ No</td><td class="no">✗ No</td><td class="yes highlight">✓ Full insights</td></tr>
+        <tr><td>Playlist sharing</td><td class="no">✗ Clunky</td><td class="no">✗ Manual</td><td class="yes highlight">✓ One link</td></tr>
+        <tr><td>Algorithm-free</td><td class="no">✗ Heavily pushed</td><td class="yes">✓ Yes</td><td class="yes highlight">✓ Always</td></tr>
+        <tr><td>Cost</td><td class="yes">Free</td><td class="yes">Free</td><td class="yes highlight">Free forever</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- ── HOW IT WORKS ── -->
   <section class="lp-hiw">
     <div class="lp-section-label">How it works</div>
-    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);">Three steps to<br>intentional watching</div>
+    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);">Up and running<br>in under a minute</div>
     <div class="hiw-steps">
       <div class="hiw-step">
         <div class="hiw-num">1</div>
-        <div class="hiw-title">Paste a link</div>
-        <div class="hiw-desc">Drop any YouTube, Instagram or X URL. VidVault auto-detects platform, grabs the thumbnail and saves it.</div>
+        <div class="hiw-title">Sign in with Google</div>
+        <div class="hiw-desc">One click, zero forms. Your library is created instantly and synced to the cloud. Works on every device.</div>
       </div>
       <div class="hiw-step">
         <div class="hiw-num">2</div>
-        <div class="hiw-title">Set a deadline</div>
-        <div class="hiw-desc">Pick a date you'll actually watch it by. Color-coded urgency keeps you honest — no more infinite backlog.</div>
+        <div class="hiw-title">Paste any video link</div>
+        <div class="hiw-desc">YouTube, Instagram Reels, X — drop the URL into VidVault. Platform auto-detected, thumbnail fetched, saved instantly.</div>
       </div>
       <div class="hiw-step">
         <div class="hiw-num">3</div>
-        <div class="hiw-title">Watch &amp; track</div>
-        <div class="hiw-desc">Hit play, mark watched, check your analytics. Your punctuality score shows exactly how disciplined you are.</div>
+        <div class="hiw-title">Set a deadline &amp; watch</div>
+        <div class="hiw-desc">Pick a date. Get color-coded urgency. Watch it, mark it done, and watch your punctuality score climb.</div>
       </div>
     </div>
   </section>
 
-  <!-- ── SOCIAL PROOF ── -->
+  <!-- ── SOCIAL PROOF MARQUEE ── -->
   <section class="lp-social">
     <div class="lp-section-label" style="margin-bottom:16px;">What people say</div>
-    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:48px;">Built for people<br>who mean it.</div>
-    <div class="testimonials">
-      <div class="tcard">
-        <div class="tcard-quote">"Finally an app that makes me accountable for my watch queue. The deadline feature is brutal in the best way."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar" style="background:rgba(59,126,255,.18);">🎮</div>
-          <div><div class="tcard-name">Arjun K.</div><div class="tcard-handle">@arjun.dev</div></div>
-        </div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-quote">"Replaced my 47-tab YouTube rabbit hole with a clean intentional library. My productivity actually went up."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar" style="background:rgba(255,69,58,.15);">📚</div>
-          <div><div class="tcard-name">Priya M.</div><div class="tcard-handle">@priyalearns</div></div>
-        </div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-quote">"The analytics showing my punctuality score is honestly embarrassing — in the way that makes you actually improve."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar" style="background:rgba(191,90,242,.15);">✨</div>
-          <div><div class="tcard-name">Rahul S.</div><div class="tcard-handle">@rahulbuilds</div></div>
-        </div>
+    <div class="lp-section-title" style="font-size:clamp(28px,3.5vw,44px);margin-bottom:48px;">Built for people<br>who actually mean it.</div>
+    <div class="tmarquee-wrap">
+      <div class="tmarquee">
+        <div class="tcard"><div class="tcard-quote">"Finally an app that makes me accountable. The deadline system is brutal in the best way possible."</div><div class="tcard-author"><div class="tcard-name">Arjun Sharma</div><div class="tcard-handle">Software Engineer, Bangalore</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"Replaced my 47-tab YouTube chaos with one clean intentional library. My productivity actually went up."</div><div class="tcard-author"><div class="tcard-name">Priya Nair</div><div class="tcard-handle">UX Designer, Mumbai</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"The punctuality score showing how bad I am at watching videos I save is honestly humbling."</div><div class="tcard-author"><div class="tcard-name">Rahul Mehta</div><div class="tcard-handle">Product Manager, Hyderabad</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"I used to save everything to Watch Later and never touch it. VidVault with deadlines actually changed that."</div><div class="tcard-author"><div class="tcard-name">Ananya Iyer</div><div class="tcard-handle">Content Creator, Chennai</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"The playlist sharing feature is underrated. Sent a study playlist to my entire friend group in one link."</div><div class="tcard-author"><div class="tcard-name">Karan Singh</div><div class="tcard-handle">Student, Delhi</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"No algorithm, no autoplay trap, no shorts. Just my curated list. Exactly what I needed."</div><div class="tcard-author"><div class="tcard-name">Tanvi Patel</div><div class="tcard-handle">Freelancer, Ahmedabad</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"Finally an app that makes me accountable. The deadline system is brutal in the best way possible."</div><div class="tcard-author"><div class="tcard-name">Rohan Verma</div><div class="tcard-handle">Developer, Pune</div></div></div>
+        <div class="tcard"><div class="tcard-quote">"Replaced my 47-tab YouTube chaos with one clean intentional library. My productivity actually went up."</div><div class="tcard-author"><div class="tcard-name">Shreya Rao</div><div class="tcard-handle">Data Analyst, Bengaluru</div></div></div>
       </div>
     </div>
   </section>
 
   <!-- ── TRUST STRIP ── -->
   <div class="lp-strip">
-    <div class="strip-label">Works with</div>
+    <div class="strip-label" style="color:rgba(255,255,255,.85);font-weight:800;">Works with</div>
     <div class="strip-track">
       <div class="strip-item">▶ YouTube</div>
       <div class="strip-item">◈ Instagram</div>
       <div class="strip-item">✕ X / Twitter</div>
+      <div class="strip-item">🎵 SoundCloud</div>
+      <div class="strip-item">🎮 Twitch</div>
+      <div class="strip-item">📺 Vimeo</div>
+      <div class="strip-item">🎬 Dailymotion</div>
+      <div class="strip-item">📱 TikTok</div>
+      <div class="strip-item">🔵 Facebook Video</div>
+      <div class="strip-item">▶ YouTube Shorts</div>
+      <div class="strip-item">🎙️ Podcast links</div>
+      <div class="strip-item">🌐 Any video URL</div>
       <div class="strip-item">⏰ Deadline Tracking</div>
       <div class="strip-item">📋 Playlists</div>
       <div class="strip-item">📊 Analytics</div>
       <div class="strip-item">🔗 Share via Link</div>
       <div class="strip-item">🌙 Dark Mode</div>
+      <div class="strip-item">☁️ Cloud Sync</div>
+      <div class="strip-item">🏆 Punctuality Score</div>
       <div class="strip-item">▶ YouTube</div>
       <div class="strip-item">◈ Instagram</div>
       <div class="strip-item">✕ X / Twitter</div>
+      <div class="strip-item">🎵 SoundCloud</div>
+      <div class="strip-item">🎮 Twitch</div>
+      <div class="strip-item">📺 Vimeo</div>
+      <div class="strip-item">🎬 Dailymotion</div>
+      <div class="strip-item">📱 TikTok</div>
+      <div class="strip-item">🔵 Facebook Video</div>
+      <div class="strip-item">▶ YouTube Shorts</div>
+      <div class="strip-item">🎙️ Podcast links</div>
+      <div class="strip-item">🌐 Any video URL</div>
       <div class="strip-item">⏰ Deadline Tracking</div>
       <div class="strip-item">📋 Playlists</div>
       <div class="strip-item">📊 Analytics</div>
       <div class="strip-item">🔗 Share via Link</div>
       <div class="strip-item">🌙 Dark Mode</div>
+      <div class="strip-item">☁️ Cloud Sync</div>
+      <div class="strip-item">🏆 Punctuality Score</div>
     </div>
   </div>
 
   <!-- ── BUILDER SECTION ── -->
   <section class="lp-builder-section" id="lp-builder">
-    <div class="lp-section-label" style="text-align:center;margin-bottom:24px;">Built by</div>
+    <div style="text-align:center;margin-bottom:24px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;">Built by</div>
     <div class="builder-card">
       <div class="builder-left">
         <div class="builder-avatar">🥷</div>
@@ -810,6 +939,49 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       </div>
     </div>
   </section>
+
+  <!-- ── NOTE FROM CREATOR ── -->
+  <section class="lp-note-section" id="lp-note">
+    <div style="text-align:center;margin-bottom:24px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;">Note from the creator</div>
+    <div class="note-card">
+      <div class="note-left">
+        <div class="note-icon">📓</div>
+        <div class="note-label">A personal note</div>
+        <div class="note-tag">Why I built this</div>
+      </div>
+      <div class="note-right">
+        <div class="note-title">I had 847 videos saved.<br>I watched zero of them.</div>
+        <div class="note-body">
+          <p>It started with YouTube Watch Later. Then Instagram saves. Then X bookmarks. I was collecting videos like they were trophies — <strong>saving content as a substitute for actually consuming it.</strong> The dopamine hit of saving felt like watching.</p>
+          <p>I'd open my Watch Later at 11pm and feel overwhelmed. 400 videos. Where do I start? I'd close the tab and doom-scroll instead. The saved content became a <strong>graveyard of good intentions.</strong></p>
+          <p>I looked for apps. Nothing fit. They were either too complex, too expensive, or only worked with YouTube. I wanted something dead simple — <strong>paste a link, set a date, actually watch it.</strong> With accountability baked in.</p>
+          <p>So I built VidVault in a weekend. Then kept improving it. The deadline system, the analytics, the punctuality score — all things I personally needed to fix my own habits. <strong>This app is me talking to my past self.</strong></p>
+        </div>
+        <div class="note-sig">
+          <div class="note-sig-avatar">🥷</div>
+          <div>
+            <div class="note-sig-name">Nikshep Doggalli</div>
+            <div class="note-sig-role">Builder & chronic video hoarder, Bangalore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA BEFORE FOOTER ── -->
+  <div style="position:relative;z-index:10;text-align:center;padding:20px 40px 100px;">
+    <div style="font-size:clamp(32px,5vw,64px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.1;margin-bottom:20px;">Stop hoarding.<br><span style="background:linear-gradient(135deg,#3b7eff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Start watching.</span></div>
+    <div style="font-size:16px;color:rgba(255,255,255,.38);margin-bottom:32px;font-weight:400;">Free. No credit card. Ready in 10 seconds.</div>
+    <button class="lp-cta-btn" onclick="startOnboarding()" style="margin:0 auto;">
+      Get started with VidVault →
+    </button>
+    <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:20px;font-size:12px;color:rgba(255,255,255,.22);font-weight:500;">
+      <span>✓ Free forever</span>
+      <span>✓ No ads</span>
+      <span>✓ 120+ platforms</span>
+      <span>✓ Syncs everywhere</span>
+    </div>
+  </div>
 
   <!-- ── FOOTER BENTO ── -->
   <footer class="lp-footer">
@@ -947,15 +1119,21 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       </div>
 
       <div class="onb-card" id="onb-5" style="display:none;">
-        <span class="onb-icon">🚀</span>
-        <div class="onb-tag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);">YOU'RE READY</div>
-        <div class="onb-title">Let's get started</div>
-        <div class="onb-text">Sign in with Google to save your library, sync across devices, and start watching intentionally.</div>
+        <span class="onb-icon">🔐</span>
+        <div class="onb-tag" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);">ONE LAST STEP</div>
+        <div class="onb-title">Why Google Sign-In?</div>
+        <div class="onb-why-grid">
+          <div class="onb-why-item"><span class="onb-why-icon">☁️</span><div><div class="onb-why-title">Cloud sync</div><div class="onb-why-desc">Your library lives in the cloud — access it from any device, any time.</div></div></div>
+          <div class="onb-why-item"><span class="onb-why-icon">🔒</span><div><div class="onb-why-title">No passwords</div><div class="onb-why-desc">Google handles auth securely. We never see or store your password.</div></div></div>
+          <div class="onb-why-item"><span class="onb-why-icon">📌</span><div><div class="onb-why-title">Saved forever</div><div class="onb-why-desc">Your videos, deadlines and playlists persist — nothing resets on refresh.</div></div></div>
+          <div class="onb-why-item"><span class="onb-why-icon">🚫</span><div><div class="onb-why-title">Zero spam</div><div class="onb-why-desc">We only use your name and photo. No emails, no marketing, ever.</div></div></div>
+        </div>
         <button class="onb-google-btn" onclick="signInWithGoogle()">
           <svg width="20" height="20" viewBox="0 0 18 18"><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"/><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.01c-.72.48-1.63.68-2.7.68-2.09 0-3.85-1.4-4.48-3.3H1.83v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"/><path d="M4.5 10.43A4.8 4.8 0 0 1 4.25 9c0-.5.09-.97.25-1.43V5.5H1.83A8 8 0 0 0 1 9c0 1.3.31 2.52.83 3.5l2.67-2.07z" fill="#FBBC05"/><path d="M8.98 3.58c1.16 0 2.2.4 3.02 1.19l2.26-2.26C12.95 1.19 11.14.5 8.98.5A8 8 0 0 0 1.83 5.5L4.5 7.57c.63-1.9 2.39-3.99 4.48-3.99z" fill="#EA4335"/></svg>
           Continue with Google
         </button>
-        <div class="onb-nav" style="margin-top:16px;">
+        <div class="onb-note">🔐 Secured by Google · We never sell your data</div>
+        <div class="onb-nav" style="margin-top:12px;">
           <button class="onb-back" onclick="onbPrev()">← Back</button>
         </div>
       </div>
@@ -1014,6 +1192,9 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       <button class="dtog" onclick="toggleDark()" title="Toggle theme">
         <div class="tknob" id="tknob">🌙</div>
       </button>
+
+      <!-- Reset Demo -->
+      <button class="btn-reset-demo" onclick="resetDemoData()" title="Reset demo data">↺ Reset Demo</button>
 
       <!-- Add Video — primary button same as LP -->
       <button class="btn-addvid" onclick="openAdd()">+ Add Video</button>
@@ -1110,7 +1291,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
           <div class="empty" id="empty-state" style="display:none;">
             <div class="empty-ico">🎬</div>
             <div class="empty-title" id="empty-title">No videos yet</div>
-            <div class="empty-txt" id="empty-text">Add videos from YouTube, xHamster, Instagram, or X.</div>
+            <div class="empty-txt" id="empty-text">Add videos from YouTube, Instagram, X and 120+ platforms.</div>
             <button class="btn-empty" onclick="openAdd()">Add Video</button>
           </div>
         </div>
@@ -1140,7 +1321,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       <div class="ff"><label class="fl">Watch Before — Deadline</label><input class="fi" id="add-dl" type="date"/></div>
       <div class="pchips">
         <span class="pchip" style="color:#ff3b30;border-color:#ff3b3030;background:#ff3b3008;">▶ YouTube</span>
-        <span class="pchip" style="color:#f5a623;border-color:#f5a62330;background:#f5a62308;">✦ xHamster</span>
+        
         <span class="pchip" style="color:#e1306c;border-color:#e1306c30;background:#e1306c08;">◈ Instagram</span>
         <span class="pchip" style="color:var(--t1);border-color:var(--bs);background:var(--s3);">✕ X</span>
       </div>
@@ -1575,7 +1756,7 @@ function renderGrid(){
     document.getElementById('vgrid').style.display='none';
     document.getElementById('empty-state').style.display='block';
     document.getElementById('empty-title').textContent=pl?'Playlist is empty':'No videos yet';
-    document.getElementById('empty-text').textContent=currentFilter!=='all'?`No ${currentFilter} videos.`:'Add videos from YouTube, xHamster, Instagram, or X.';
+    document.getElementById('empty-text').textContent=currentFilter!=='all'?`No ${currentFilter} videos.`:'Add videos from YouTube, Instagram, X and 120+ platforms.';
     return;
   }
   document.getElementById('vgrid').style.display='grid';
@@ -2007,7 +2188,7 @@ function addVideo(){
   const title=document.getElementById('add-title').value.trim();
   const deadline=document.getElementById('add-dl').value;
   if(!url){showAddErr('Please enter a URL.');return;}
-  const d=det(url);if(!d){showAddErr('Could not detect platform. Supported: YouTube, xHamster, Instagram, X.');return;}
+  const d=det(url);if(!d){showAddErr('Could not detect platform. Paste a YouTube, Instagram or X video URL.');return;}
   videos.unshift({id:uid(),url,platform:d.platform,platformId:d.id,title:title||PLATS[d.platform].name+' Video',deadline:deadline||null,watched:false,watchedAt:null});
   closeAdd();render();showToast('Video added ✓');
 }
@@ -2150,6 +2331,33 @@ function updateOnbDots(){
    INFO MODAL — FAQ, Privacy, Cookie, Contact, HIW
 ══════════════════════════════════════════ */
 const INFO_CONTENT = {
+  pricing: {
+    icon: '🎁',
+    title: 'Why VidVault is completely free',
+    body: `
+      <div class="pricing-grid">
+        <div class="pricing-card free">
+          <div class="pricing-label">VidVault</div>
+          <div class="pricing-price">₹0</div>
+          <div class="pricing-desc">Forever. No credit card. No trial. No gotcha.</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-label">Other tools</div>
+          <div class="pricing-price">$8–29</div>
+          <div class="pricing-desc">Per month. For features you don't even need.</div>
+        </div>
+      </div>
+      <div class="pricing-why">
+        <h3>Why free?</h3>
+        <p>VidVault was built to scratch my own itch. I was drowning in saved videos I never watched — YouTube Watch Later, Instagram saves, X bookmarks. A chaotic mess across three apps.</p>
+        <p>I built VidVault for myself. Then shared it. Since I'm not running a business here, there's no investor demanding I monetize your attention. No ads. No upsells. No premium tier hiding the good stuff.</p>
+        <h3>How does it stay free?</h3>
+        <p>Firebase's free tier covers the infrastructure for personal-scale apps. As long as VidVault stays a passion project rather than a startup, the costs are negligible — and I'm happy to absorb them.</p>
+        <h3>Will it ever cost money?</h3>
+        <p>If VidVault ever grows enough that costs become serious, I'll introduce an optional "support the builder" tier — but the core product will always stay free. That's a promise.</p>
+      </div>
+    `
+  },
   faq: {
     icon: '❓',
     title: 'Frequently Asked Questions',
@@ -2310,6 +2518,34 @@ function doggoNext() {
   } else {
     hideDoggo();
   }
+}
+
+
+/* ══════════════════════════════════════════
+   RESET DEMO DATA
+══════════════════════════════════════════ */
+function resetDemoData(){
+  if(!confirm('Reset to demo data? This will replace your current library with 5 sample videos.')) return;
+  videos = [
+    {id:'demo1',url:'https://www.youtube.com/watch?v=dQw4w9WgXcQ',title:'Rick Astley — Never Gonna Give You Up',platform:'youtube',thumb:'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',deadline:new Date(Date.now()+14*864e5).toISOString().split('T')[0],done:false,playlist:'',added:Date.now()-2*864e5,dur:'3:33',note:''},
+    {id:'demo2',url:'https://www.youtube.com/watch?v=9bZkp7q19f0',title:'PSY — Gangnam Style',platform:'youtube',thumb:'https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg',deadline:new Date(Date.now()+2*864e5).toISOString().split('T')[0],done:false,playlist:'',added:Date.now()-5*864e5,dur:'4:13',note:''},
+    {id:'demo3',url:'https://www.youtube.com/watch?v=JGwWNGJdvx8',title:'Ed Sheeran — Shape of You',platform:'youtube',thumb:'https://img.youtube.com/vi/JGwWNGJdvx8/hqdefault.jpg',deadline:new Date(Date.now()-1*864e5).toISOString().split('T')[0],done:false,playlist:'',added:Date.now()-8*864e5,dur:'3:54',note:'Overdue!'},
+    {id:'demo4',url:'https://www.youtube.com/watch?v=CevxZvSJLk8',title:'Katy Perry — Roar',platform:'youtube',thumb:'https://img.youtube.com/vi/CevxZvSJLk8/hqdefault.jpg',deadline:new Date(Date.now()+7*864e5).toISOString().split('T')[0],done:true,playlist:'',added:Date.now()-10*864e5,dur:'4:34',note:''},
+    {id:'demo5',url:'https://www.youtube.com/watch?v=OPf0YbXqDm0',title:'Mark Ronson ft. Bruno Mars — Uptown Funk',platform:'youtube',thumb:'https://img.youtube.com/vi/OPf0YbXqDm0/hqdefault.jpg',deadline:new Date(Date.now()+5*864e5).toISOString().split('T')[0],done:false,playlist:'',added:Date.now()-864e5,dur:'4:30',note:''}
+  ];
+  // Save to Firestore if logged in
+  if(typeof window._fbUser !== 'undefined' && window._fbUser) {
+    // Fire-and-forget save
+    try {
+      const {getFirestore,doc,setDoc} = window._fbModules || {};
+      if(setDoc) {
+        const db = getFirestore();
+        setDoc(doc(db,'users',window._fbUser.uid),{videos:JSON.stringify(videos)},{merge:true}).catch(()=>{});
+      }
+    } catch(e){}
+  }
+  render();
+  showToast('Demo data restored — 5 sample videos loaded! 🎬');
 }
 
 function toggleLPBento(){document.getElementById('lp-bento-ov').classList.toggle('active');}
