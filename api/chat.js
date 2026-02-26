@@ -16,16 +16,11 @@ module.exports = async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
+        'Authorization': 'Bearer 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',
         'HTTP-Referer': 'https://aellium.vercel.app',
         'X-Title': 'aellium chatbot'
       },
-      body: JSON.stringify({
-        model: 'google/gemini-2.0-flash-001',
-        messages,
-        max_tokens: 200,
-        temperature: 0.85
-      })
+      body: JSON.stringify({ messages })
     });
 
     if (!response.ok) {
