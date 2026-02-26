@@ -2991,8 +2991,7 @@ function closeLPBento(){document.getElementById('lp-bento-ov').classList.remove(
 
 <script>
 (function(){
-  const API_KEY = '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';
-  const MODEL = 'google/gemini-2.0-flash-001';
+  const MODEL = 'google/gemini-2.0-flash-001'; // used for reference only
   const PFP = 'https://api.dicebear.com/7.x/pixel-art/svg?seed=Nikshep&backgroundColor=1a1a2e&scale=80';
 
   const SYSTEM = `You are Nikshep Doggalli — a 20-something product designer and indie developer from India who built aellium, a personal video deadline tracker. You speak casually, confidently, and with a bit of dry humor. You're passionate about design, productivity systems, and building things people actually use.
@@ -3105,21 +3104,14 @@ Keep replies concise (2-4 sentences max). Be warm but a little cheeky. If asked 
       }));
       history.push({role:'user', content: text});
 
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEY}`,
-          'HTTP-Referer': location.origin,
-          'X-Title': 'aellium chatbot'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: MODEL,
-          messages: [{role:'system', content: SYSTEM}, ...history],
-          max_tokens: 200,
-          temperature: 0.85
+          messages: [{role:'system', content: SYSTEM}, ...history]
         })
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       hideTyping();
       const reply = data?.choices?.[0]?.message?.content?.trim() || "Hmm, something went wrong on my end. Try again?";
