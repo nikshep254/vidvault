@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f0f0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>aellium</title>
 <style>
 :root{
   --sf:'DM Sans',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
@@ -649,55 +658,105 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
    MOBILE RESPONSIVE
 ══════════════════════════════════════════ */
 @media(max-width:768px){
-  /* Island header */
-  .island{padding:0 14px;height:54px;gap:2px;}
-  .ilogo img{height:36px !important;}
+  /* ── Island header ── */
+  .island{padding:0 12px;height:52px;gap:4px;}
+  .ilogo img{height:30px !important;}
   .inav-item{display:none;}
   .btn-builder,.btn-reset-demo{display:none;}
-  .btn-addvid{padding:6px 11px;font-size:12px;}
-  .isearch-btn{width:38px;height:38px;font-size:18px;}
+  .btn-addvid{display:none;}
+  .isearch-btn{height:32px;padding:0 10px;font-size:13px;}
+  .isearch-label{display:none;}
+  .island-wrap{padding:6px 12px;}
 
-  /* Sidebar hidden on mobile — bottom nav instead */
+  /* ── Sidebar → bottom nav ── */
   .sidebar{display:none !important;}
   .app-body{flex-direction:column;}
 
-  /* Bottom mobile nav */
+  /* ── Bottom mobile nav ── */
   #mobile-nav{
     display:flex;position:fixed;bottom:0;left:0;right:0;
-    background:rgba(10,10,10,.92);backdrop-filter:blur(20px);
+    background:rgba(10,10,10,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
     border-top:1px solid rgba(255,255,255,.1);
     z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));
   }
-  [data-theme="light"] #mobile-nav{background:rgba(255,255,255,.92);border-top-color:rgba(0,0,0,.1);}
+  [data-theme="light"] #mobile-nav{background:rgba(255,255,255,.95);border-top-color:rgba(0,0,0,.1);}
   .mob-nav-item{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
     padding:4px 0;cursor:pointer;color:var(--t3);transition:color .14s;
-    font-size:9.5px;font-weight:600;letter-spacing:.02em;
+    font-size:9px;font-weight:600;letter-spacing:.02em;
   }
   .mob-nav-item.active{color:var(--acc);}
-  .mob-nav-item span:first-child{font-size:20px;}
+  .mob-nav-item span:first-child{font-size:22px;line-height:1.2;}
 
-  /* Main content above bottom nav */
-  .main{padding-bottom:70px;}
+  /* ── Main + grid ── */
+  .main{padding:12px 12px 80px;min-width:0;}
+  .vgrid{grid-template-columns:1fr;gap:10px;}
+  .vcard{border-radius:14px;}
+  .vthumb{height:185px;}
 
-  /* Video grid single column */
-  .vgrid{grid-template-columns:1fr;gap:12px;}
+  /* ── Landing page ── */
+  .lp-hero{padding:80px 20px 40px;}
+  .lp-tagline{font-size:clamp(32px,8vw,52px);}
+  .lp-sub{font-size:15px;padding:0 10px;}
+  .lp-features-grid,.lp-bento-grid{grid-template-columns:1fr !important;}
+  .lp-about,.lp-hiw,.lp-compare,.lp-social,.lp-footer{padding-left:16px;padding-right:16px;}
+  .lp-stats{grid-template-columns:1fr 1fr 1fr;margin:0 16px 60px;}
+  .note-card,.builder-card{grid-template-columns:1fr;border-radius:18px;}
+  .builder-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:28px 20px;}
+  .footer-top{grid-template-columns:1fr;gap:0;}
+  .footer-col{border-right:none !important;border-bottom:1px solid rgba(255,255,255,.06);}
+  .footer-brand{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}
+  .hiw-steps{flex-direction:column;gap:12px;}
+  .lp-cta-section{padding:0 20px 60px;}
+  .lp-cta-btn{width:100%;justify-content:center;padding:16px 24px;font-size:16px;}
+  .lp-manifesto{padding:24px 20px 40px;}
+  .manifesto-body{font-size:16px;}
+  .lp-section-title{font-size:clamp(22px,5.5vw,36px);}
+  .lp-nav{padding:0 12px;}
 
-  /* Analytics mobile */
-  .an-row{flex-direction:column !important;}
+  /* ── Modals ── */
+  .modal{width:95vw !important;max-width:95vw !important;border-radius:18px !important;}
+  .glass-modal{width:95vw !important;max-width:95vw !important;border-radius:18px !important;}
+  .cm-mod{width:92vw !important;}
+  .pmod{width:100vw !important;max-width:100vw;border-radius:0 !important;height:100dvh;display:flex;flex-direction:column;}
+  .pfw{flex:1;}
+  .pfw iframe{width:100%;height:100%;}
+  .pinfo{padding:12px 16px;}
 
-  /* Modal full-width */
-  .glass-modal{width:95vw !important;max-width:95vw !important;border-radius:16px !important;}
+  /* ── Onboarding ── */
+  .onb-modal{padding:28px 20px;border-radius:20px;width:calc(100vw - 32px);max-width:calc(100vw - 32px);}
+  .onb-why-grid{grid-template-columns:1fr !important;}
+  .onb-viz{display:none;}
 
-  /* Builder card */
-  .bcard{right:10px;width:calc(100vw - 20px);top:64px;}
+  /* ── Floating cards ── */
+  .bcard{right:8px;left:8px;width:auto;top:60px;border-radius:18px;}
+  .prof-card{right:8px;left:8px;width:auto;border-radius:18px;}
 
-  /* Profile card */
-  .prof-card{right:10px;width:calc(100vw - 20px);}
+  /* ── Analytics ── */
+  .an-row{flex-direction:column !important;gap:12px;}
+  .an-stat-grid{grid-template-columns:1fr 1fr !important;}
 
-  /* Chatbot */
-  #nik-panel{width:calc(100vw - 20px);right:10px;bottom:80px;}
-  #nik-launcher{right:16px;bottom:80px;}
+  /* ── Search ── */
+  .isearch-box{width:calc(100vw - 100px) !important;}
+
+  /* ── Chatbot ── */
+  #nik-panel{width:calc(100vw - 16px);right:8px;bottom:76px;max-height:60dvh;}
+  #nik-launcher{right:12px;bottom:76px;}
+
+  /* ── Due banner ── */
+  .due-banner{border-radius:12px;padding:10px 12px;}
+
+  /* ── Share modal ── */
+  .share-url-row{flex-direction:column;gap:8px;}
+  .share-url-row input{border-radius:10px !important;}
+  .share-url-row button{border-radius:10px !important;width:100%;}
+}
+
+@media(max-width:400px){
+  .island{padding:0 8px;gap:2px;}
+  .ilogo img{height:26px !important;}
+  .isearch-btn{padding:0 8px;}
+  .mob-nav-item span:first-child{font-size:18px;}
 }
 
 @media(min-width:769px){
@@ -1667,7 +1726,8 @@ function openApp(){
   document.documentElement.setAttribute('data-theme','dark');
   isDark=true;
   const hash=window.location.hash;
-  if(hash.startsWith('#data=')){try{importSharedPlaylist(hash.slice(6));}catch(e){}}
+  if(hash.startsWith('#s=')){try{importSharedPlaylist(hash.slice(3),'s');}catch(e){}}
+  else if(hash.startsWith('#data=')){try{importSharedPlaylist(hash.slice(6),'data');}catch(e){}}
   render();
 }
 function goLanding(e){
@@ -2197,11 +2257,24 @@ function togPL(plId,vidId){
 function shareCurrent(){
   const pl=playlists.find(p=>p.id===currentView);if(!pl)return;
   const vids=pl.videoIds.map(id=>videos.find(v=>v.id===id)).filter(Boolean);
-  const data={name:pl.name,emoji:pl.emoji,videos:vids.map(v=>({url:v.url,title:v.title,deadline:v.deadline}))};
-  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-  const shareUrl=`${location.origin}${location.pathname}#data=${encoded}`;
+  // Compact payload: only store what's needed, strip URLs to just platform+ID
+  const data={
+    n:pl.name,
+    e:pl.emoji,
+    v:vids.map(v=>({
+      u:v.url,
+      t:v.title,
+      d:v.deadline||undefined
+    }))
+  };
+  const json=JSON.stringify(data);
+  // Use base64url (no padding) for a shorter URL
+  const encoded=btoa(unescape(encodeURIComponent(json)))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const shareUrl=`${location.origin}${location.pathname}#s=${encoded}`;
   document.getElementById('share-pl-name').textContent=`"${pl.emoji} ${pl.name}" — ${vids.length} video${vids.length!==1?'s':''}`;
-  document.getElementById('share-url-input').value=shareUrl;
+  const inp=document.getElementById('share-url-input');
+  inp.value=shareUrl;
   document.getElementById('share-modal').style.display='flex';
 }
 function closeShareModal(){document.getElementById('share-modal').style.display='none';}
@@ -2209,15 +2282,25 @@ function copyShareUrl(){
   const inp=document.getElementById('share-url-input');
   navigator.clipboard.writeText(inp.value).then(()=>showToast('Link copied! 🔗')).catch(()=>{inp.select();document.execCommand('copy');showToast('Link copied! 🔗');});
 }
-function importSharedPlaylist(encoded){
+function importSharedPlaylist(encoded,fmt='data'){
   try{
-    const data=JSON.parse(decodeURIComponent(escape(atob(encoded))));
-    const np={id:uid(),name:data.name||'Imported',emoji:data.emoji||'🔗',videoIds:[]};
-    if(data.videos&&Array.isArray(data.videos)){
-      data.videos.forEach(v=>{
-        const d=det(v.url);if(!d)return;
-        const existing=videos.find(x=>x.url===v.url);
-        if(!existing){const nv={id:uid(),url:v.url,platform:d.platform,platformId:d.id,title:v.title||`${PLATS[d.platform].name} Video`,deadline:v.deadline||null,watched:false,watchedAt:null};videos.push(nv);np.videoIds.push(nv.id);}
+    // Decode base64url (new #s= format) or base64 (old #data= format)
+    let b64=encoded;
+    if(fmt==='s') b64=encoded.replace(/-/g,'+').replace(/_/g,'/');
+    const raw=JSON.parse(decodeURIComponent(escape(atob(b64))));
+    // Support both compact {n,e,v} and legacy {name,emoji,videos}
+    const name=raw.n||raw.name||'Imported';
+    const emoji=raw.e||raw.emoji||'🔗';
+    const vidList=raw.v||raw.videos||[];
+    const np={id:uid(),name,emoji,videoIds:[]};
+    if(Array.isArray(vidList)){
+      vidList.forEach(v=>{
+        const url=v.u||v.url;if(!url)return;
+        const d=det(url);if(!d)return;
+        const title=v.t||v.title||`${PLATS[d.platform].name} Video`;
+        const deadline=v.d||v.deadline||null;
+        const existing=videos.find(x=>x.url===url);
+        if(!existing){const nv={id:uid(),url,platform:d.platform,platformId:d.id,title,deadline,watched:false,watchedAt:null};videos.push(nv);np.videoIds.push(nv.id);}
         else if(!np.videoIds.includes(existing.id))np.videoIds.push(existing.id);
       });
     }
@@ -2510,7 +2593,7 @@ document.addEventListener('keydown',e=>{
 /* ══════════════════════════════════════════
    INIT
 ══════════════════════════════════════════ */
-if(window.location.hash.startsWith('#data=')){openApp();}
+if(window.location.hash.startsWith('#data=')||window.location.hash.startsWith('#s=')){openApp();}
 render();
 
 // ── Typewriter — app features cycling ──
