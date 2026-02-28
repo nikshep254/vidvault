@@ -148,6 +148,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 #auth-overlay.show{display:flex;}
 .auth-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
+@keyframes livePulse{0%,100%{opacity:1;}50%{opacity:.5;}}
 .auth-msg{font-size:15px;color:rgba(255,255,255,.7);font-weight:500;}
 
 /* ── HERO — pitch black, typewriter ── */
@@ -1430,7 +1431,7 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
       <div class="ff"><label class="fl">Watch Before — Deadline</label><input class="fi" id="add-dl" type="date"/></div>
       <div class="pchips">
         <span class="pchip" style="color:#ff3b30;border-color:#ff3b3030;background:#ff3b3008;">▶ YouTube</span>
-        
+        <span class="pchip" style="color:#ff3b30;border-color:#ff3b3030;background:#ff3b3008;">🔴 YT Live</span>
         <span class="pchip" style="color:#e1306c;border-color:#e1306c30;background:#e1306c08;">◈ Instagram</span>
         <span class="pchip" style="color:var(--t1);border-color:var(--bs);background:var(--s3);">✕ X</span>
       </div>
@@ -1583,17 +1584,41 @@ body{font-family:var(--sf);-webkit-font-smoothing:antialiased;text-rendering:opt
 ══════════════════════════════════════════ */
 const PLATS={
   youtube:{name:'YouTube',color:'#ff3b30',icon:'▶',embed:id=>`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`,thumb:id=>`https://img.youtube.com/vi/${id}/hqdefault.jpg`},
+  youtube_live:{name:'YT Live',color:'#ff3b30',icon:'🔴',
+    embed:id=>id.startsWith('@')||id.startsWith('UC')||id.startsWith('channel/')
+      ?`https://www.youtube.com/embed/live_stream?channel=${id.replace(/^channel\//,'')}&autoplay=1`
+      :`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`,
+    thumb:id=>id.startsWith('@')||id.startsWith('UC')||id.startsWith('channel/')
+      ?null
+      :`https://img.youtube.com/vi/${id}/hqdefault.jpg`},
   xhamster:{name:'xHamster',color:'#f5a623',icon:'✦',embed:id=>`https://xhamster.com/embed/${id}`,thumb:()=>null},
   instagram:{name:'Instagram',color:'#e1306c',icon:'◈',embed:id=>`https://www.instagram.com/p/${id}/embed/`,thumb:()=>null},
   twitter:{name:'X',color:'#888',icon:'✕',embed:()=>null,thumb:()=>null}
 };
 const PATS=[
+  // YouTube Live — /live/VIDEO_ID
+  {k:'youtube_live',re:/youtube\.com\/live\/([a-zA-Z0-9_-]{11})/},
+  // YouTube Live — watch?v=ID where stream is indicated (we detect /live path separately)
+  // YouTube channel live — youtube.com/@handle/live or youtube.com/channel/UC.../live
+  {k:'youtube_live',re:/youtube\.com\/(?:@([^/\s?]+)|channel\/(UC[a-zA-Z0-9_-]+))\/live/,fmt:m=>m[1]?`@${m[1]}`:`channel/${m[2]}`},
+  // YouTube channel live — youtube.com/c/name/live
+  {k:'youtube_live',re:/youtube\.com\/c\/([^/\s?]+)\/live/,fmt:m=>`@${m[1]}`},
+  // Standard YouTube video
   {k:'youtube',re:/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/},
   {k:'xhamster',re:/xhamster\d*\.com\/videos\/[^/?#]+-(\d+)/},
   {k:'instagram',re:/instagram\.com\/(?:p|reel)\/([A-Za-z0-9_-]+)/},
   {k:'twitter',re:/(?:twitter|x)\.com\/\w+\/status\/(\d+)/}
 ];
-const det=url=>{for(const{k,re}of PATS){const m=url.match(re);if(m)return{platform:k,id:m[1]};}return null;};
+const det=url=>{
+  for(const pat of PATS){
+    const m=url.match(pat.re);
+    if(m){
+      const id=pat.fmt?pat.fmt(m):m[1];
+      return{platform:pat.k,id};
+    }
+  }
+  return null;
+};
 const uid=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const surl=u=>{try{const o=new URL(u);return o.hostname+o.pathname.slice(0,24)+(o.pathname.length>24?'…':'');}catch{return u;}};
@@ -1893,6 +1918,7 @@ function renderGrid(){
         <div class="vthumb-ph" style="${thumb?'display:none':''}">${p.icon}</div>
         <div class="play-ov"><div class="play-circle"><div class="play-tri"></div></div></div>
         <div class="pbadge" style="background:${p.color}dd;color:#fff;">${p.icon} ${p.name}</div>
+        ${vid.platform==='youtube_live'?`<div style="position:absolute;top:8px;left:8px;font-size:9px;font-weight:800;letter-spacing:.08em;background:#ff3b30;color:#fff;padding:2px 6px;border-radius:4px;animation:livePulse 1.5s ease-in-out infinite;z-index:3;">● LIVE</div>`:''}
       </div>
       <div class="vinfo">
         <div class="vtitle">${esc(vid.title)}</div>
@@ -1982,7 +2008,10 @@ function play(id){
   if(vid.platform==='twitter'){window.open(vid.url,'_blank','noopener');return;}
   currentPlayingId=id;
   document.getElementById('pdot').style.background=p.color;
-  document.getElementById('ptitle').textContent=vid.title;
+  // Show LIVE badge if applicable
+  const ptitleEl=document.getElementById('ptitle');
+  const isLive=vid.platform==='youtube_live';
+  ptitleEl.innerHTML=isLive?`<span style="display:inline-flex;align-items:center;gap:6px;">${esc(vid.title)}<span style="font-size:10px;font-weight:800;letter-spacing:.05em;background:#ff3b30;color:#fff;padding:2px 7px;border-radius:4px;animation:livePulse 1.5s ease-in-out infinite;">LIVE</span></span>`:esc(vid.title);
   const ua=document.getElementById('purl');ua.textContent=surl(vid.url);ua.href=vid.url;
   document.getElementById('pititle').textContent=vid.title;
   document.getElementById('polink').href=vid.url;
@@ -2323,8 +2352,9 @@ let _lastFetchUrl='';
 async function onAddUrlInput(url){
   url=url.trim();
   if(!url||url===_lastFetchUrl) return;
-  // Only fetch for YouTube URLs
-  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  // Only fetch for YouTube URLs (oEmbed works for regular videos and some live streams by video ID)
+  const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if(!ytMatch) return;
   if(!ytMatch) return;
   _lastFetchUrl=url;
   const spinner=document.getElementById('add-title-spinner');
@@ -2352,7 +2382,7 @@ function addVideo(){
   const title=document.getElementById('add-title').value.trim();
   const deadline=document.getElementById('add-dl').value;
   if(!url){showAddErr('Please enter a URL.');return;}
-  const d=det(url);if(!d){showAddErr('Could not detect platform. Paste a YouTube, Instagram or X video URL.');return;}
+  const d=det(url);if(!d){showAddErr('Could not detect platform. Paste a YouTube, YouTube Live, Instagram or X video URL.');return;}
   const newVid={id:uid(),url,platform:d.platform,platformId:d.id,title:title||PLATS[d.platform].name+' Video',deadline:deadline||null,watched:false,watchedAt:null};
   videos.unshift(newVid);
   // If inside a playlist view, auto-add to that playlist
