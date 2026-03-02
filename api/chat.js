@@ -20,17 +20,22 @@ module.exports = async function handler(req, res) {
         'HTTP-Referer': 'https://aellium.vercel.app',
         'X-Title': 'aellium chatbot'
       },
-      body: JSON.stringify({ messages })
+      body: JSON.stringify({
+        model: 'google/gemini-2.0-flash-001',
+        messages,
+        max_tokens: 300
+      })
     });
 
+    const text = await response.text();
     if (!response.ok) {
-      const t = await response.text();
-      return res.status(502).json({ error: 'OpenRouter error', detail: t });
+      console.error('OpenRouter error:', response.status, text);
+      return res.status(502).json({ error: 'OpenRouter error', detail: text, status: response.status });
     }
 
-    const data = await response.json();
-    return res.status(200).json(data);
+    return res.status(200).json(JSON.parse(text));
   } catch (err) {
+    console.error('Handler error:', err.message);
     return res.status(500).json({ error: err.message });
   }
 };
