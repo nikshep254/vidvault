@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/r/:code", "destination": "/vidvault.html?r=:code" },
-    { "source": "/((?!api/).*)", "destination": "/vidvault.html" }
+    { "source": "/r/:code", "destination": "/index.html?r=:code" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
